@@ -110,3 +110,4 @@ C:\Users\benst\OneDrive\Documents\code\nyx-admin\api\obj\Debug\net8.0\refint\api
 C:\Users\benst\OneDrive\Documents\code\nyx-admin\api\obj\Debug\net8.0\api.pdb
 C:\Users\benst\OneDrive\Documents\code\nyx-admin\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\benst\OneDrive\Documents\code\nyx-admin\api\obj\Debug\net8.0\ref\api.dll
+C:\Users\benst\OneDrive\Documents\code\nyx-admin\api\obj\Debug\net8.0\api.sourcelink.json
