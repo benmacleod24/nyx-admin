@@ -2,6 +2,7 @@
 using api.Extentions;
 using api.Models;
 using api.Services.PasswordHasher;
+using api.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,19 +17,22 @@ namespace api.Services.AuthService
         private readonly DatabaseContext dbContext;
         private readonly IConfiguration _configuration;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IUserService _userService;
 
-        public AuthService(DatabaseContext dbContext, IConfiguration configuration, IPasswordHasher passwordHasher)
+        public AuthService(DatabaseContext dbContext, IConfiguration configuration, IPasswordHasher passwordHasher, IUserService userService)
         {
             this.dbContext = dbContext;
             _configuration = configuration;
             _passwordHasher = passwordHasher;
+            _userService = userService;
         }
 
         public async Task<UserDTO> VerifyLoginAndCollectUser(string username, string password)
         {
             User? user = await dbContext.Users
                 .Where(u => u.Username.Equals(username))
-                .SingleOrDefaultAsync();
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync();
 
             // User with given username not found.
             if (user == null || user.Password == null)
@@ -47,11 +51,18 @@ namespace api.Services.AuthService
             return user.ToDTO();
         }
 
-        public string CreateAuthToken(UserDTO user)
+        public async Task<string> CreateAuthToken(UserDTO user)
         {
             string TokenIssuer = _configuration["JwtConfig:Issuer"];
             string TokenAudience = _configuration["JwtConfig:Audience"];
             string TokenKey = _configuration["JwtConfig:Key"];
+
+            RoleDTO userRole = await _userService.GetUserRoleById(user.Id);
+
+            if (userRole == null) 
+            {
+                throw new Exception("User role has not been assigned.");
+            }
 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -61,7 +72,8 @@ namespace api.Services.AuthService
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TokenKey)), SecurityAlgorithms.HmacSha256Signature),
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, userRole.Key)
                 })
             };
 
@@ -72,9 +84,9 @@ namespace api.Services.AuthService
             return authToken;
         }
 
-        public string CreateAuthToken(UserWithPasswordDTO user)
+        public async Task<string> CreateAuthToken(UserWithPasswordDTO user)
         {
-            return CreateAuthToken(new UserDTO
+            return await CreateAuthToken(new UserDTO
             {
                 UserName = user.UserName,
                 Email = user.Email,

@@ -26,6 +26,12 @@ namespace api.Controllers
             this.dbContext = dbContext;
         }
 
+        [HttpGet("test")]
+        public ActionResult TestMethod()
+        {
+            return Ok();
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser(CreateUserDTO userData)
         {
@@ -40,7 +46,7 @@ namespace api.Controllers
             UserDTO verifiedUser = await authService.VerifyLoginAndCollectUser(loginData.Username, loginData.Password);
 
             // Create Refresh & Auth Tokens
-            string authToken = authService.CreateAuthToken(verifiedUser);
+            string authToken = await authService.CreateAuthToken(verifiedUser);
             string refreshToken = authService.CreateRefreshToken();
 
             // With new refresh token we want to invalidate all other tokens.
@@ -67,6 +73,9 @@ namespace api.Controllers
                 return Unauthorized("Refresh token not found.");
             }
 
+            Console.WriteLine("=======START TOKEN========");
+            Console.WriteLine(refreshToken);
+
             RefreshToken refreshTokenData = await authService.GetRefreshToken(refreshToken);
 
             // Refresh token data not found.
@@ -90,10 +99,10 @@ namespace api.Controllers
 
             // Generate new refresh & auth tokens.
             string newRefreshToken = authService.CreateRefreshToken();
-            string newAuthToken = authService.CreateAuthToken(userData);
+            string newAuthToken = await authService.CreateAuthToken(userData);
 
             // Invalidate all other tokens.
-            await authService.InvalidateAllUserRefreshTokens(refreshTokenData.UserId);
+            //await authService.InvalidateAllUserRefreshTokens(refreshTokenData.UserId);
 
             // Set new token in DB and Cookies.
             await SetRefreshToken(refreshTokenData.UserId, newRefreshToken);

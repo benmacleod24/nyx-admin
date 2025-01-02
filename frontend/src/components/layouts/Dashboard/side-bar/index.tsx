@@ -9,8 +9,10 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { MenuOptions } from "@/lib/config";
 import { Home, Users } from "lucide-react";
 import { Link } from "wouter";
+import SidebarFooter from "./footer";
 
 export default function AppSidebar() {
 	return (
@@ -29,28 +31,35 @@ export default function AppSidebar() {
 				</div>
 			</SidebarHeader>
 			<SidebarContent>
-				<SidebarGroup>
-					<SidebarGroupLabel>Admin Stuff</SidebarGroupLabel>
-					<SidebarGroupContent>
-						<SidebarMenu>
-							<SidebarMenuItem>
-								<Link href="/">
-									<SidebarMenuButton>
-										<Home /> Overview
-									</SidebarMenuButton>
-								</Link>
-							</SidebarMenuItem>
-							<SidebarMenuItem>
-								<Link href="/players">
-									<SidebarMenuButton>
-										<Users /> Players
-									</SidebarMenuButton>
-								</Link>
-							</SidebarMenuItem>
-						</SidebarMenu>
-					</SidebarGroupContent>
-				</SidebarGroup>
+				{MenuOptions.map((group, index) => {
+					return (
+						<SidebarGroup key={index}>
+							<SidebarGroupLabel>
+								{group.title}
+							</SidebarGroupLabel>
+							<SidebarGroupContent>
+								<SidebarMenu>
+									{group.children.map((option, index) => {
+										if (!option.href) return;
+
+										return (
+											<SidebarMenuItem key={index}>
+												<Link href={option.href}>
+													<SidebarMenuButton>
+														<option.icon />{" "}
+														{option.title}
+													</SidebarMenuButton>
+												</Link>
+											</SidebarMenuItem>
+										);
+									})}
+								</SidebarMenu>
+							</SidebarGroupContent>
+						</SidebarGroup>
+					);
+				})}
 			</SidebarContent>
+			<SidebarFooter />
 		</Sidebar>
 	);
 }

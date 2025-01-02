@@ -3,6 +3,8 @@ using api.DTOs.Response;
 using api.Extentions;
 using api.Models;
 using api.Services.PasswordHasher;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -12,11 +14,13 @@ namespace api.Services.UserService
     {
         private readonly DatabaseContext dbContext;
         private readonly IPasswordHasher passwordHasher;
+        private readonly IMapper _mapper;
 
-        public UserService(DatabaseContext dbContext, IPasswordHasher passwordHasher)
+        public UserService(DatabaseContext dbContext, IPasswordHasher passwordHasher, IMapper mapper)
         {
             this.dbContext = dbContext;
             this.passwordHasher = passwordHasher;
+            _mapper = mapper;
         }
 
         public async Task<UserWithPasswordDTO> CreateUser(CreateUserDTO userData)
@@ -98,9 +102,21 @@ namespace api.Services.UserService
         {
             User? user = await dbContext.Users
                 .Where(v => v.Id.Equals(userId))
+                .Include(r => r.Role)
                 .SingleOrDefaultAsync();
 
             return user == null ? null : user.ToDTO();
+        }
+
+        public async Task<RoleDTO?> GetUserRoleById(int userId)
+        {
+            RoleDTO? role = await dbContext.Users
+                .Where(u => u.Id.Equals(userId))
+                .Select(u => u.Role)
+                .ProjectTo<RoleDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return role;
         }
     }
 }

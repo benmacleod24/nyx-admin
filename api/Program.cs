@@ -1,5 +1,7 @@
+using api.Common;
 using api.Extentions;
 using api.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -51,6 +53,13 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseUrls = true;
 });
 
+var mapperConfig = new MapperConfiguration(mc => {
+    mc.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+ 
 // Add our dependency injection into the app.
 builder.Services.AddApplicationServices();
 

@@ -1,5 +1,6 @@
 ﻿using api.Services.AuthService;
 using api.Services.PasswordHasher;
+using api.Services.RoleService;
 using api.Services.UserService;
 
 namespace api.Extentions
@@ -12,6 +13,7 @@ namespace api.Extentions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IRoleService, RoleService>();
 
             return services;
         }

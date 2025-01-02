@@ -12,6 +12,7 @@ namespace api.Extentions
                 Id = user.Id,
                 UserName = user.Username,
                 Email = user.Email,
+                Role = user.Role != null ? user.Role.ToDTO() : null
             };
         }
 
