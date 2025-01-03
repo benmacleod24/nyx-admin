@@ -6,4 +6,8 @@ export const ApiEndponts = {
 	Permissions: {
 		Get: "/api/permissions",
 	},
+	Roles: {
+		Create: "/api/roles",
+		GetPermissions: (roleKey: string) => `/api/roles/${roleKey}/permissions`,
+	},
 } as const;

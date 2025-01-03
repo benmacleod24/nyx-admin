@@ -13,7 +13,7 @@ export default function UserDebugPage() {
 	}
 
 	return (
-		<DashboardLayout className="p-5">
+		<DashboardLayout>
 			<div>
 				<h1 className="text-xl font-semibold">User Debug</h1>
 				<p className="text-sm text-muted-foreground">

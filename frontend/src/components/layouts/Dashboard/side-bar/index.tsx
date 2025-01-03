@@ -13,6 +13,7 @@ import { MenuOptions } from "@/lib/config";
 import { Home, Users } from "lucide-react";
 import { Link } from "wouter";
 import SidebarFooter from "./footer";
+import SidebarMenuOptions from "./menu";
 
 export default function AppSidebar() {
 	return (
@@ -31,33 +32,7 @@ export default function AppSidebar() {
 				</div>
 			</SidebarHeader>
 			<SidebarContent>
-				{MenuOptions.map((group, index) => {
-					return (
-						<SidebarGroup key={index}>
-							<SidebarGroupLabel>
-								{group.title}
-							</SidebarGroupLabel>
-							<SidebarGroupContent>
-								<SidebarMenu>
-									{group.children.map((option, index) => {
-										if (!option.href) return;
-
-										return (
-											<SidebarMenuItem key={index}>
-												<Link href={option.href}>
-													<SidebarMenuButton>
-														<option.icon />{" "}
-														{option.title}
-													</SidebarMenuButton>
-												</Link>
-											</SidebarMenuItem>
-										);
-									})}
-								</SidebarMenu>
-							</SidebarGroupContent>
-						</SidebarGroup>
-					);
-				})}
+				<SidebarMenuOptions />
 			</SidebarContent>
 			<SidebarFooter />
 		</Sidebar>

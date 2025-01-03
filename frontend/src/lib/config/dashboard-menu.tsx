@@ -1,36 +1,44 @@
-import { Home, Scroll, Users } from "lucide-react";
+import { Home, Scroll, Settings, Users } from "lucide-react";
+import { Permissions } from "./permissions";
 
 export type TMenuItem = {
 	icon?: any;
 	title: string;
 	href?: string;
 	permissions?: string[];
+	children?: { title: string; href: string; permissions?: string[] }[];
 	onClick?: () => void;
 };
 
-export type TMenuGroup = {
-	title: string;
-	children: TMenuItem[];
-};
-
-export const MenuOptions: TMenuGroup[] = [
+export const MenuOptions: TMenuItem[] = [
 	{
-		title: "Admin Stuff",
+		title: "Overview",
+		icon: Home,
+		href: "/",
+	},
+	{
+		title: "Players",
+		icon: Users,
+		href: "/players",
+	},
+	{
+		title: "Logs",
+		href: "/logs",
+		icon: Scroll,
+	},
+	{
+		title: "Settings",
+		icon: Settings,
 		children: [
 			{
-				title: "Overview",
-				icon: Home,
-				href: "/",
+				href: "/settings/users",
+				title: "Users",
+				permissions: [Permissions.ViewRoles],
 			},
 			{
-				title: "Players",
-				icon: Users,
-				href: "/players",
-			},
-			{
-				title: "Logs",
-				href: "/logs",
-				icon: Scroll,
+				href: "/settings/roles",
+				title: "Roles",
+				permissions: [Permissions.ViewRoles],
 			},
 		],
 	},

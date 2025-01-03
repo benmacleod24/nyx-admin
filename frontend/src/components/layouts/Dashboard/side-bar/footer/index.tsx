@@ -31,15 +31,6 @@ export default function SidebarFooter() {
 	return (
 		<SidebarFooterUI>
 			<SidebarMenu>
-				{hasPermission([Permissions.ViewSystemSettings]) && (
-					<SidebarMenuItem>
-						<Link href="/settings/system">
-							<SidebarMenuButton>
-								<Settings /> System Settings
-							</SidebarMenuButton>
-						</Link>
-					</SidebarMenuItem>
-				)}
 				<SidebarMenuItem>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
@@ -85,12 +76,11 @@ export default function SidebarFooter() {
 									<DropdownMenuGroup>
 										{group.map((option, index) => (
 											<WithLink
+												key={index + idx}
 												href={option.href}
 												withLink
 											>
-												<DropdownMenuItem
-													key={index + idx}
-												>
+												<DropdownMenuItem>
 													<option.icon />
 													{option.title}
 												</DropdownMenuItem>

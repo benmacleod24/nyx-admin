@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Link } from "wouter";
+import { Slot } from "@radix-ui/react-slot";
 
 export default function WithLink(
 	props: React.PropsWithChildren<{
@@ -14,7 +15,10 @@ export default function WithLink(
 	}
 
 	return (
-		<Link href={props.href} className={cn(props.className)}>
+		<Link
+			href={props.href}
+			className={cn("cursor-pointer", props.className)}
+		>
 			{props.children}
 		</Link>
 	);

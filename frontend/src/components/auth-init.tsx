@@ -3,18 +3,17 @@ import { ApiEndponts } from "@/lib/config";
 import { authLoadingAtom, authTokenAtom } from "@/lib/state";
 import { userAtom } from "@/lib/state/user";
 import { TAuthResponse } from "@/types";
-import { useSetAtom } from "jotai";
-import { useCallback, useEffect } from "react";
+import { useAtom, useSetAtom } from "jotai";
+import { Loader } from "lucide-react";
+import React, { useCallback, useEffect } from "react";
 
-export default function AuthInit() {
+export default function AuthInit(props: React.PropsWithChildren) {
 	const setAuthToken = useSetAtom(authTokenAtom);
 	const setUser = useSetAtom(userAtom);
-	const setAuthLoading = useSetAtom(authLoadingAtom);
+	const [authLoading, setAuthLoading] = useAtom(authLoadingAtom);
 
 	const initalizeAuth = useCallback(async () => {
-		const refreshTokenResponse = await Fetch.Get<TAuthResponse>(
-			ApiEndponts.Auth.Refresh
-		);
+		const refreshTokenResponse = await Fetch.Get<TAuthResponse>(ApiEndponts.Auth.Refresh);
 
 		setAuthLoading(false);
 
@@ -31,5 +30,14 @@ export default function AuthInit() {
 		initalizeAuth();
 	}, []);
 
-	return null;
+	if (authLoading) {
+		return (
+			<div className="flex flex-col items-center justify-center w-screen h-dvh gap-1.5">
+				<Loader className="text-brand animate-spin" />
+				<p className="text-sm text-muted-foreground">Checking Authentication</p>
+			</div>
+		);
+	}
+
+	return props.children;
 }

@@ -26,12 +26,6 @@ namespace api.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet("test")]
-        public ActionResult TestMethod()
-        {
-            return Ok();
-        }
-
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser(CreateUserDTO userData)
         {

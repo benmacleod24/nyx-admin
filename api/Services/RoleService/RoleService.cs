@@ -1,3 +1,4 @@
+using api.DTOs.Request;
 using api.DTOs.Response;
 using api.Extentions;
 using api.Models;
@@ -16,6 +17,30 @@ namespace api.Services.RoleService
         {
             _context = context;
             _mapper = mapper;
+        }
+
+        public async Task<List<RoleDTO>> GetAllRoles()
+        {
+            List<RoleDTO> roles = await _context.Roles
+                .ProjectTo<RoleDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return roles;
+        }
+
+        public async Task<RoleDTO> CreateRole(CreateRoleDTO roleData)
+        {
+            Role role = new Role
+            {
+                Key = roleData.Key,
+                FriendlyName = roleData.FriendlyName,
+            };
+
+            // Saves role to the database.
+            _context.Roles.Add(role);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<RoleDTO>(role);
         }
 
         public async Task<RoleDTO?> GetRoleByKey(string roleKey)
