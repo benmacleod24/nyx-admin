@@ -64,8 +64,12 @@ export default function CreateRole() {
 	return (
 		<ResponsiveModal open={open} onOpenChange={setOpen}>
 			<ResponsiveModalTrigger asChild>
-				<Button size={"sm"} variant={"outline"} className="justify-start">
-					<Plus /> Role
+				<Button
+					size={"icon"}
+					variant={"outline"}
+					className="items-center min-w-10 min-h-10 justify-center rounded-lg"
+				>
+					<Plus />
 				</Button>
 			</ResponsiveModalTrigger>
 			<ResponsiveModalContent side={"bottom"}>

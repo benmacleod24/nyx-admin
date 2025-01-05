@@ -67,9 +67,6 @@ namespace api.Controllers
                 return Unauthorized("Refresh token not found.");
             }
 
-            Console.WriteLine("=======START TOKEN========");
-            Console.WriteLine(refreshToken);
-
             RefreshToken refreshTokenData = await authService.GetRefreshToken(refreshToken);
 
             // Refresh token data not found.

@@ -11,6 +11,7 @@ namespace api.Extentions
             {
                 Id = role.Id,
                 Key = role.Key,
+                OrderLevel = role.OrderLevel,
                 FriendlyName = role.FriendlyName
             };
         }

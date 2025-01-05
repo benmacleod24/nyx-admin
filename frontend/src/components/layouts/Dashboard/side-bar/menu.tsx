@@ -82,11 +82,11 @@ export function SidebarMenuOptionWithChildren(props: { option: TMenuItem }) {
 
 				<CollapsibleContent>
 					<SidebarMenuSub>
-						{props.option.children?.map((option) => {
+						{props.option.children?.map((option, index) => {
 							if (option.permissions && !hasPermission(option.permissions)) return;
 
 							return (
-								<SidebarMenuSubItem>
+								<SidebarMenuSubItem key={index}>
 									<WithLink href={option.href} withLink={Boolean(option.href)}>
 										<SidebarMenuSubButton>{option.title}</SidebarMenuSubButton>
 									</WithLink>

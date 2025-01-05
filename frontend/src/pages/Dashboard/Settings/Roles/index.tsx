@@ -1,8 +1,6 @@
 import DashboardLayout from "@/components/layouts/Dashboard";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks";
-import { Permissions } from "@/lib/config";
-import { GripVertical, Plus } from "lucide-react";
+import { ApiEndponts, Permissions } from "@/lib/config";
 import useSWR from "swr";
 import { useLocation } from "wouter";
 import CreateRole from "./create-role";
@@ -10,23 +8,31 @@ import ContentLoader from "@/components/ui/content-loader";
 import { TRole } from "@/types";
 import RoleEditor from "./role-editor";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import RoleSelector from "./role-selector";
+import { Search } from "lucide-react";
 
 export default function RoleSettingsPage() {
 	const [editingRoleKey, setEditingRoleKey] = useState<string>("");
-	const { hasPermission, isPermissionsReady } = useAuth();
+	const { hasPermission, isPermissionsReady, role: userRole } = useAuth();
 	const [_, navigate] = useLocation();
+	const [filter, setFilter] = useState("");
 
-	const { data, isLoading, error } = useSWR<TRole[]>("/api/roles");
+	const { data, isLoading, error } = useSWR<TRole[]>(ApiEndponts.Roles.GetRoles);
 
 	// Handle settings the default editing role.
 	useEffect(() => {
-		if (data && data.length >= 1) {
-			// TODO: Set to the highest level the user can edit.
-			setEditingRoleKey(data[0].key);
+		if (data && data.length >= 1 && userRole) {
+			// Remove roles user doesn't have access to.
+			const roles = data
+				.filter((r) => r.orderLevel < userRole.orderLevel)
+				.sort((a, b) => b.orderLevel - a.orderLevel);
+
+			// Set default viewed role to highest access role.
+			if (roles[0]) {
+				setEditingRoleKey(roles[0].key);
+			}
 		}
-	}, [data]);
+	}, [data, userRole]);
 
 	if (!isPermissionsReady) return;
 	if (isPermissionsReady && !hasPermission([Permissions.ViewRoles])) {
@@ -43,14 +49,28 @@ export default function RoleSettingsPage() {
 				</div>
 			</div>
 
-			<div className="mt-5 flex items-start">
+			<div className="mt-5 flex items-start gap-10">
 				<div className="w-1/5">
+					<div className="flex items-center gap-2 mb-2">
+						<div className="flex items-center w-full border rounded-lg min-h-10 px-2">
+							<Search className="mr-2 text-muted-foreground" />
+							<input
+								value={filter}
+								onChange={(e) => setFilter(e.target.value)}
+								className="w-full h-10 bg-transparent border-none outline-none"
+								placeholder="Search Roles"
+							/>
+						</div>
+						<CreateRole />
+					</div>
 					<ContentLoader data={{ roles: data }} isLoading={[isLoading]} errors={[error]}>
 						{({ roles }) => {
 							return (
 								<RoleSelector
 									editingRoleKey={editingRoleKey}
-									roles={roles}
+									roles={roles.filter((r) =>
+										r.friendlyName.toLowerCase().includes(filter.toLowerCase())
+									)}
 									setEditingRole={setEditingRoleKey}
 								/>
 							);

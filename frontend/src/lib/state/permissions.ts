@@ -17,9 +17,7 @@ globalStore.sub(permissionsAtom, () => {
 	if (!newPermissions) return;
 
 	let permissionKeys: string[] = [];
-	newPermissions.forEach((permission) =>
-		permissionKeys.push(permission.key)
-	);
+	newPermissions.forEach((permission) => permissionKeys.push(permission.key));
 
 	globalStore.set(permissionsLoadedAtom, true);
 	globalStore.set(permissionKeysAtom, permissionKeys);
@@ -27,12 +25,9 @@ globalStore.sub(permissionsAtom, () => {
 
 // Watch for changes to user atom, to refetch permissions.
 globalStore.sub(userAtom, async () => {
-	const permissions = await Fetch.Get<TPermission[]>(
-		ApiEndponts.Permissions.Get,
-		{
-			includeCredentials: true,
-		}
-	);
+	const permissions = await Fetch.Get<TPermission[]>(ApiEndponts.User.GetPermissions, {
+		includeCredentials: true,
+	});
 
 	if (permissions.ok && permissions.data) {
 		globalStore.set(permissionsAtom, permissions.data);

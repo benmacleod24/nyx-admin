@@ -22,6 +22,8 @@ namespace api.Services.RoleService
         public async Task<List<RoleDTO>> GetAllRoles()
         {
             List<RoleDTO> roles = await _context.Roles
+                .Where(r => r.CanBeEdited)
+                .OrderByDescending(r => r.OrderLevel)
                 .ProjectTo<RoleDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -34,11 +36,15 @@ namespace api.Services.RoleService
             {
                 Key = roleData.Key,
                 FriendlyName = roleData.FriendlyName,
+                OrderLevel = 0
             };
 
             // Saves role to the database.
             _context.Roles.Add(role);
             await _context.SaveChangesAsync();
+
+            // Now that we created the new role we must increment each role level by one.
+            await UpdateRolesOrderLevel();
 
             return _mapper.Map<RoleDTO>(role);
         }
@@ -81,6 +87,40 @@ namespace api.Services.RoleService
                 .ToListAsync();
 
             return permissions;
+        }
+
+        public async Task<List<RoleDTO>> UpdateRoleOrder(List<UpdateRoleOrderDTO> updatedList)
+        {
+            var roleIds = updatedList.Select(r => r.RoleId);
+            List<Role> roles = await _context.Roles
+                .Where(r => r.CanBeEdited && roleIds.Contains(r.Id))
+                .ToListAsync();
+
+            foreach (Role data in roles)
+            {
+                var update = updatedList.First(r => r.RoleId == data.Id);
+                data.OrderLevel = update.OrderLevel;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return await GetAllRoles();
+        }
+
+        private async Task UpdateRolesOrderLevel()
+        {
+            // Only update roles that are editable.
+            List<Role> roles = await _context.Roles
+                .Where(r => r.CanBeEdited)
+                .OrderByDescending(r => r.OrderLevel)
+                .ToListAsync();
+
+            foreach (Role role in roles)
+            {
+                role.OrderLevel++;
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

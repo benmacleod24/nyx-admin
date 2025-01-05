@@ -76,5 +76,26 @@ namespace api.Controllers
 
             return Ok(permissionKeyList);
         }
+
+        [HttpPost("update-order")]
+        [Authorize]
+        public async Task<ActionResult> UpdateRoleOrder(List<UpdateRoleOrderDTO> roleUpates)
+        {
+            string? userRole = HttpContext.User.Claims.FirstOrDefault(r => r.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == null)
+            {
+                return Unauthorized();
+            }
+
+            bool hasPermission = await _permissionService.DoesRoleHavePermission(userRole, "MODIFY_ROLES");
+            if (!hasPermission)
+            {
+                return Unauthorized();
+            } 
+
+            List<RoleDTO> updatedRoleList = await _roleService.UpdateRoleOrder(roleUpates);
+            return Ok(updatedRoleList);
+        }
     }
 }

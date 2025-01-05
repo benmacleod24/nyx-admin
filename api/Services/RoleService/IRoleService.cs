@@ -12,5 +12,6 @@ namespace api.Services.RoleService
         public Task<RoleDTO?> GetRoleById(int roleId);
         public Task<List<PermissionDTO>> GetRolePermissionsByKey(string roleKey);
         public Task<List<PermissionDTO>> GetRolePermissionsById(int roleId);
+        public Task<List<RoleDTO>> UpdateRoleOrder(List<UpdateRoleOrderDTO> updatedListData);
     }
 }

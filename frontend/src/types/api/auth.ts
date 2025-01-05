@@ -8,5 +8,6 @@ export type TAuthResponse = {
 export type TRole = {
 	id: number;
 	key: string;
+	orderLevel: number;
 	friendlyName: string;
 };
