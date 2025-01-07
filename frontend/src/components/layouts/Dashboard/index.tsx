@@ -7,7 +7,9 @@ export default function DashboardLayout(props: React.PropsWithChildren<{ classNa
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<main className={cn("pl-5 pt-3 w-full", props.className)}>{props.children}</main>
+			<main className={cn("w-full min-h-dvh max-h-dvh", props.className)}>
+				{props.children}
+			</main>
 		</SidebarProvider>
 	);
 }

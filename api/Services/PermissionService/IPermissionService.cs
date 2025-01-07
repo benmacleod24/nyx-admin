@@ -6,5 +6,6 @@ namespace api.Services.PermissionService
     {
         public Task<bool> DoesRoleHavePermission(string roleKey, string permissionKey);
         public Task<List<PermissionDTO>> GetAllPermissions();
+        public Task<PermissionDTO?> GetPermissionByKey(string permissionKey);
     }
 }

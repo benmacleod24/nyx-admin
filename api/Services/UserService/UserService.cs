@@ -1,4 +1,5 @@
-﻿using api.DTOs.Request;
+﻿using api.Common.Constants;
+using api.DTOs.Request;
 using api.DTOs.Response;
 using api.Extentions;
 using api.Models;
@@ -21,6 +22,16 @@ namespace api.Services.UserService
             this.dbContext = dbContext;
             this.passwordHasher = passwordHasher;
             _mapper = mapper;
+        }
+
+        public async Task<List<UserDTO>> GetAllUsers()
+        {
+            List<UserDTO> users = await dbContext.Users
+                .OrderByDescending(u => u.Role.OrderLevel)
+                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return users;
         }
 
         public async Task<UserWithPasswordDTO> CreateUser(CreateUserDTO userData)
@@ -46,6 +57,7 @@ namespace api.Services.UserService
             {
                 Username = userData.UserName.ToLower().Trim(),
                 Password = hashedPassword,
+                RoleId = DefaultValues.DefaultUserId
             };
 
             // Save user to the database.

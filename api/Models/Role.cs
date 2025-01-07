@@ -10,5 +10,6 @@ namespace api.Models
         public ICollection<User> Users { get; } = new List<User>();
         public ICollection<RolePermission> Permissions { get; set; } = new List<RolePermission>();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool CanBeDeleted { get; set; } = true;
     }
 }

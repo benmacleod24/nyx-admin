@@ -59,6 +59,13 @@ export default function CreateRole() {
 		}
 	}
 
+	function toUpperSnakeCase(str: string) {
+		return str
+			.replace(/([a-z])([A-Z])/g, "$1_$2") // Insert underscore between camelCase words
+			.replace(/[\s-]+/g, "_") // Replace spaces and hyphens with underscores
+			.toUpperCase(); // Convert to uppercase
+	}
+
 	if (!hasPermission(Permissions.CreateRole)) return;
 
 	return (
@@ -89,7 +96,16 @@ export default function CreateRole() {
 								<FormItem>
 									<FormLabel>Role Key</FormLabel>
 									<FormControl>
-										<Input placeholder="SUPER_ADMIN" {...field} />
+										<Input
+											placeholder="SUPER_ADMIN"
+											{...field}
+											onChange={(e) => {
+												form.setValue(
+													"key",
+													toUpperSnakeCase(e.target.value)
+												);
+											}}
+										/>
 									</FormControl>
 									<FormDescription>
 										Keys must be uppercase with spaces as underscores.

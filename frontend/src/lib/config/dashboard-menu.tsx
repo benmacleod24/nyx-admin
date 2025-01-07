@@ -33,7 +33,7 @@ export const MenuOptions: TMenuItem[] = [
 			{
 				href: "/settings/users",
 				title: "Users",
-				permissions: [Permissions.ViewRoles],
+				permissions: [Permissions.ViewUsers],
 			},
 			{
 				href: "/settings/roles",

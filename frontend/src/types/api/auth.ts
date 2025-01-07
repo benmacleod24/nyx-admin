@@ -10,4 +10,5 @@ export type TRole = {
 	key: string;
 	orderLevel: number;
 	friendlyName: string;
+	canBeDeleted: boolean;
 };

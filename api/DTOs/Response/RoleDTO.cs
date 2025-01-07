@@ -6,5 +6,6 @@ namespace api.DTOs.Response
         public int OrderLevel { get; set; }
         public string Key { get; set; }
         public string? FriendlyName { get; set; }
+        public bool CanBeDeleted { get; set; }
     }
 }

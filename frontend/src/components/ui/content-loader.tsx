@@ -22,5 +22,7 @@ export default function ContentLoader<T extends Props>(props: {
 	)
 		return props.children(props.data);
 
+	if (props.errors?.filter(Boolean).length !== 0) return "Error Occured";
+
 	return props.loader || <Loader className={cn("animate-spin", props.loaderClassName)} />;
 }

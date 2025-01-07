@@ -10,6 +10,7 @@ namespace api.Common
         {
             CreateMap<Role, RoleDTO>();
             CreateMap<Permission, PermissionDTO>();
+            CreateMap<User, UserDTO>();
         }
     }
 }

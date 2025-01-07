@@ -62,10 +62,82 @@ namespace api.Controllers
             return Ok(role);
         }
 
+        [HttpGet("{roleKey}")]
+        [Authorize]
+        public async Task<ActionResult> GetRoleByKey(string roleKey)
+        {
+            string? userRole = HttpContext.User.Claims.FirstOrDefault(v => v.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == null)
+            {
+                return Unauthorized();
+            }
+
+            if (!await _permissionService.DoesRoleHavePermission(userRole, "VIEW_ROLES"))
+            {
+                return Unauthorized();
+            }
+
+            RoleDTO? role = await _roleService.GetRoleByKey(roleKey);
+            return Ok(role);
+        }
+
+        [HttpPut("{roleKey}")]
+        [Authorize]
+        public async Task<ActionResult> UpdateRole(string roleKey, [FromBody] UpdateRoleDTO updatedRole)
+        {
+            string? userRole = HttpContext.User.Claims.FirstOrDefault(v => v.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == null)
+            {
+                return Unauthorized();
+            }
+
+            if (!await _permissionService.DoesRoleHavePermission(userRole, "MODIFY_ROLES"))
+            {
+                return Unauthorized();
+            }
+
+            await _roleService.UpdateRole(roleKey, updatedRole);
+            return Ok();
+        }
+
+        [HttpDelete("{roleKey}")]
+        [Authorize]
+        public async Task<ActionResult> DeleteRole(string roleKey)
+        {
+            string? userRole = HttpContext.User.Claims.FirstOrDefault(v => v.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == null)
+            {
+                return Unauthorized();
+            }
+
+            if (!await _permissionService.DoesRoleHavePermission(userRole, "DELETE_ROLES"))
+            {
+                return Unauthorized();
+            }
+
+            await _roleService.DeleteRole(roleKey);
+            return Ok();
+        }
+
         [HttpGet("{roleKey}/permissions")]
         [Authorize]
         public async Task<ActionResult> GetRolePermissions(string roleKey)
         {
+            string? userRole = HttpContext.User.Claims.FirstOrDefault(v => v.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == null)
+            {
+                return Unauthorized();
+            }
+
+            if (!await _permissionService.DoesRoleHavePermission(userRole, "VIEW_ROLES"))
+            {
+                return Unauthorized();
+            }
+
             List<PermissionDTO> rolePermissions = await _roleService.GetRolePermissionsByKey(roleKey);
             List<string> permissionKeyList = new List<string>();
 

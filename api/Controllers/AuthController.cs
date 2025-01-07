@@ -40,7 +40,7 @@ namespace api.Controllers
             UserDTO verifiedUser = await authService.VerifyLoginAndCollectUser(loginData.Username, loginData.Password);
 
             // Create Refresh & Auth Tokens
-            string authToken = await authService.CreateAuthToken(verifiedUser);
+            string newAuthToken = await authService.CreateAuthToken(verifiedUser);
             string refreshToken = authService.CreateRefreshToken();
 
             // With new refresh token we want to invalidate all other tokens.
@@ -51,7 +51,7 @@ namespace api.Controllers
 
             return Ok(new
             {
-                authToken = authToken,
+                authToken = newAuthToken,
                 data = verifiedUser
             });
         }
@@ -93,7 +93,7 @@ namespace api.Controllers
             string newAuthToken = await authService.CreateAuthToken(userData);
 
             // Invalidate all other tokens.
-            //await authService.InvalidateAllUserRefreshTokens(refreshTokenData.UserId);
+            await authService.InvalidateAllUserRefreshTokens(refreshTokenData.UserId);
 
             // Set new token in DB and Cookies.
             await SetRefreshToken(refreshTokenData.UserId, newRefreshToken);

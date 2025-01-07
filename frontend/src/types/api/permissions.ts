@@ -1,6 +1,6 @@
 export type TPermission = {
 	id: number;
 	key: string;
-	FriendlyName: string;
+	friendlyName: string;
 	description?: string;
 };

@@ -38,10 +38,7 @@ export async function fetchWrapper<TResponse = any, TBody = unknown>(
 		requestOptions.body = JSON.stringify(options.body);
 	}
 
-	const response = await fetch(
-		`https://localhost:7252${uri}`,
-		requestOptions
-	);
+	const response = await fetch(`https://localhost:7252${uri}`, requestOptions);
 
 	try {
 		const data = await response.json();
@@ -57,7 +54,9 @@ export async function fetchWrapper<TResponse = any, TBody = unknown>(
 				data: data as TResponse,
 			};
 		}
-	} catch (e) {}
+	} catch (e) {
+		return { ok: response.ok, data: undefined };
+	}
 
 	return { ok: false };
 }
@@ -65,20 +64,12 @@ export async function fetchWrapper<TResponse = any, TBody = unknown>(
 export const Fetch = {
 	Get: <R>(uri: string, options?: Omit<fetchWrapperOptions, "method">) =>
 		fetchWrapper<R>(uri, { ...options, method: "GET" }),
-	Post: <R, B = unknown>(
-		uri: string,
-		options?: Omit<fetchWrapperOptions<B>, "method">
-	) => fetchWrapper<R, B>(uri, { ...options, method: "POST" }),
-	Patch: <R, B = unknown>(
-		uri: string,
-		options?: Omit<fetchWrapperOptions<B>, "method">
-	) => fetchWrapper<R, B>(uri, { ...options, method: "PATCH" }),
-	Put: <R, B = unknown>(
-		uri: string,
-		options?: Omit<fetchWrapperOptions<B>, "method">
-	) => fetchWrapper<R, B>(uri, { ...options, method: "PUT" }),
-	Delete: <R, B = unknown>(
-		uri: string,
-		options?: Omit<fetchWrapperOptions<B>, "method">
-	) => fetchWrapper<R, B>(uri, { ...options, method: "DELETE" }),
+	Post: <R, B = unknown>(uri: string, options?: Omit<fetchWrapperOptions<B>, "method">) =>
+		fetchWrapper<R, B>(uri, { ...options, method: "POST" }),
+	Patch: <R, B = unknown>(uri: string, options?: Omit<fetchWrapperOptions<B>, "method">) =>
+		fetchWrapper<R, B>(uri, { ...options, method: "PATCH" }),
+	Put: <R, B = unknown>(uri: string, options?: Omit<fetchWrapperOptions<B>, "method">) =>
+		fetchWrapper<R, B>(uri, { ...options, method: "PUT" }),
+	Delete: <R, B = unknown>(uri: string, options?: Omit<fetchWrapperOptions<B>, "method">) =>
+		fetchWrapper<R, B>(uri, { ...options, method: "DELETE" }),
 };

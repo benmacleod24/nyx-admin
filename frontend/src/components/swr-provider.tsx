@@ -9,6 +9,8 @@ export default function SWRProvider(props: React.PropsWithChildren) {
 	return (
 		<SWRConfig
 			value={{
+				errorRetryInterval: 250,
+				errorRetryCount: 3,
 				fetcher: (resource, init) =>
 					fetch(`https://localhost:7252${resource}`, {
 						...init,

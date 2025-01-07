@@ -34,5 +34,14 @@ namespace api.Services.PermissionService
 
             return permissions;
         }
+
+        public async Task<PermissionDTO?> GetPermissionByKey(string permissionKey)
+        {
+            Permission? permission = await _context.Permissions
+                .Where(p => p.Key == permissionKey)
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<PermissionDTO>(permission);
+        }
     }
 }

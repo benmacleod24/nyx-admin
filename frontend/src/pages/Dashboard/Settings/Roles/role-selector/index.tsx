@@ -8,6 +8,12 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Fetch } from "@/lib";
 import { ApiEndponts } from "@/lib/config";
 import { mutate } from "swr";
+import { useAtom, useSetAtom } from "jotai";
+import {
+	editingRoleAtom,
+	shouldAniamteUnsaveChangesAtom,
+	unsavedRoleChangesAtom,
+} from "@/lib/state/pages/manage-roles";
 
 // Function to reorder the role array.
 function reorder<T>(list: T[], startIndex: number, endIndex: number) {
@@ -18,11 +24,7 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
 	return result;
 }
 
-export default function RoleSelector(props: {
-	roles: TRole[];
-	editingRoleKey: string;
-	setEditingRole: (v: string) => void;
-}) {
+export default function RoleSelector(props: { roles: TRole[] }) {
 	// Used to track which element is being dragged.
 	const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 	// Auto animate ref for smooth arranging of the list.
@@ -51,14 +53,14 @@ export default function RoleSelector(props: {
 		}
 	}
 
+	if (!props.roles) return;
+
 	return (
 		<div className="grid gap-2" ref={animateRef}>
 			{props.roles.map((r, idx) => (
 				<RoleOption
 					role={r}
 					roles={props.roles}
-					setRoleActive={() => props.setEditingRole(r.key)}
-					isActiveRole={props.editingRoleKey === r.key}
 					key={r.id}
 					index={idx}
 					onDrop={handleDrop}
@@ -72,8 +74,6 @@ export default function RoleSelector(props: {
 
 function RoleOption(props: {
 	role: TRole;
-	setRoleActive: () => void;
-	isActiveRole: boolean;
 	index: number;
 	roles: TRole[];
 	draggedIndex: number | null;
@@ -82,6 +82,26 @@ function RoleOption(props: {
 }) {
 	const [hovered, setHovered] = useState(false);
 	const { role: userRole } = useAuth();
+
+	const setAnimateUnsavedChanges = useSetAtom(shouldAniamteUnsaveChangesAtom);
+	const [activeEditingRole, setActiveEditingRole] = useAtom(editingRoleAtom);
+	const [unsavedRoleChanges] = useAtom(unsavedRoleChangesAtom);
+
+	// Handle setting a role for active.
+	function handleRoleClick() {
+		if (!isDroppable) return;
+
+		// Notify user unsaved changes.
+		if (unsavedRoleChanges) {
+			setAnimateUnsavedChanges(true);
+			setTimeout(() => {
+				setAnimateUnsavedChanges(false);
+			}, 1500);
+			return;
+		}
+
+		setActiveEditingRole(props.role);
+	}
 
 	// Determine if the option is droppable.
 	const isDroppable = useMemo(() => {
@@ -109,7 +129,7 @@ function RoleOption(props: {
 	const handleDrop = useCallback(
 		(e: React.DragEvent<HTMLDivElement>) => {
 			e.preventDefault();
-			if (!props.draggedIndex) return;
+			if (props.draggedIndex === null) return;
 
 			// Get the index of role the user has.
 			const indexOfUserRole = props.roles.findIndex((r) => r.id === userRole?.id);
@@ -129,9 +149,20 @@ function RoleOption(props: {
 
 	return (
 		<div>
-			{hovered && isDroppable && props.draggedIndex && props.index < props.draggedIndex && (
-				<div className="w-full h-0.5 bg-brand mb-1 rounded-full" />
-			)}
+			{hovered &&
+				isDroppable &&
+				props.draggedIndex !== null &&
+				props.index < props.draggedIndex && (
+					<div className="w-full h-0.5 bg-brand mb-1 rounded-full" />
+				)}
+
+			{/* <pre>
+				{JSON.stringify(
+					{ hovered, isDroppable, draggedIndex: props.draggedIndex },
+					null,
+					2
+				)}
+			</pre> */}
 			<div
 				draggable={isDroppable}
 				onDrag={handleDragStart}
@@ -139,12 +170,12 @@ function RoleOption(props: {
 				onDragLeave={() => setHovered(false)}
 				onDragEnd={() => setHovered(false)}
 				onDrop={handleDrop}
-				onClick={isDroppable ? props.setRoleActive : () => {}}
+				onClick={handleRoleClick}
 				className={cn(
 					"flex items-center border rounded-lg p-2 gap-2 select-none",
 					isDroppable && "cursor-move hover:bg-muted transition-all",
 					!isDroppable && "cursor-not-allowed text-muted-foreground",
-					props.isActiveRole && "bg-muted"
+					activeEditingRole && activeEditingRole.id === props.role.id && "bg-muted"
 				)}
 			>
 				{!isDroppable ? <Lock size={15} /> : <GripVertical size={18} />}
@@ -156,9 +187,12 @@ function RoleOption(props: {
 				</Avatar>
 				<p>{props.role.friendlyName}</p>
 			</div>
-			{hovered && isDroppable && props.draggedIndex && props.index > props.draggedIndex && (
-				<div className="w-full h-0.5 bg-brand mt-1 rounded-full" />
-			)}
+			{hovered &&
+				isDroppable &&
+				props.draggedIndex !== null &&
+				props.index > props.draggedIndex && (
+					<div className="w-full h-0.5 bg-brand mt-1 rounded-full" />
+				)}
 		</div>
 	);
 }
