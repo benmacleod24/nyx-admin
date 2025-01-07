@@ -18,6 +18,8 @@ builder.Services.AddDbContextPool<DatabaseContext>(options =>
     )
 );
 
+
+
 builder.Services.AddAuthorization();
 
 // Setup JWT token authentication.
@@ -70,6 +72,13 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+// Seed the database.
+using (IServiceScope? scrope = app.Services.CreateScope())
+{
+    DatabaseContext context = scrope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    await DatabaseSeeder.Seed(context);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

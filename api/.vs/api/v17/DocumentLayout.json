@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T16:47:47.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DatabaseSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseSeeder.cs",
+              "RelativeDocumentMoniker": "Models\\DatabaseSeeder.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseSeeder.cs",
+              "RelativeToolTip": "Models\\DatabaseSeeder.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwD0AAAC7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T16:12:42.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DatabaseContext.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseContext.cs",
+              "RelativeDocumentMoniker": "Models\\DatabaseContext.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseContext.cs",
+              "RelativeToolTip": "Models\\DatabaseContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-07T15:45:52.243Z",
+              "EditorCaption": ""
             }
           ]
         }
