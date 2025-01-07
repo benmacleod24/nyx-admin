@@ -64,6 +64,8 @@ export function SidebarMenuOptionWithChildren(props: { option: TMenuItem }) {
 		});
 	}, [path]);
 
+	if (!hasAnyChildAccess) return;
+
 	if (!props.option.children || props.option.children.length <= 0 || !hasAnyChildAccess)
 		return <SidebarMenuOption option={props.option} />;
 

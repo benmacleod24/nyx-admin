@@ -4,6 +4,7 @@ export const ApiEndponts = {
 	Auth: {
 		Refresh: "/api/auth/refresh",
 		Login: "/api/auth/login",
+		Register: "/api/auth/register",
 	},
 	Permissions: {
 		Get: "/api/permissions",

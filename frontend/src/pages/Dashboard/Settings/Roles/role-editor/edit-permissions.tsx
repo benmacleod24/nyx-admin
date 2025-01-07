@@ -13,11 +13,12 @@ import {
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/hooks";
+import { Permissions } from "@/lib/config";
 
 export default function EditRolePermissions(props: { permissions: TPermission[] }) {
 	const [filter, setFilter] = useState<string>("");
 	const form = useFormContext<UpdateRoleFormSchema>();
-	const { permissions } = useAuth();
+	const { permissions, hasPermission } = useAuth();
 
 	return (
 		<div>
@@ -56,7 +57,10 @@ export default function EditRolePermissions(props: { permissions: TPermission[] 
 											<Switch
 												checked={Boolean(field.value)}
 												onCheckedChange={field.onChange}
-												disabled={!permissions?.includes(permission.key)}
+												disabled={
+													!permissions?.includes(permission.key) ||
+													!hasPermission(Permissions.ModifyRoles)
+												}
 												aria-readonly
 												className="data-[state=checked]:bg-brand"
 												thumbClassName="data-[state=checked]:bg-white"

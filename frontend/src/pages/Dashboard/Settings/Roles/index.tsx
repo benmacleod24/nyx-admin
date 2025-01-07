@@ -31,8 +31,6 @@ export default function RoleSettingsPage() {
 				.filter((r) => r.orderLevel < userRole.orderLevel)
 				.sort((a, b) => b.orderLevel - a.orderLevel);
 
-			console.log(roles);
-
 			// Set default viewed role to highest access role.
 			if (roles[0]) {
 				setEditingRole(roles[0]);

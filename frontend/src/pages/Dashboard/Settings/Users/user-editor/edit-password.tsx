@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { UpdateRoleFormSchema } from ".";
+import { TEditUserFormSchema } from ".";
 import {
 	FormControl,
 	FormDescription,
@@ -9,33 +9,25 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/hooks";
-import { Permissions } from "@/lib/config";
 
-export default function EditRoleName() {
-	const form = useFormContext<UpdateRoleFormSchema>();
-	const { hasPermission } = useAuth();
+export default function EditUserPassword() {
+	const form = useFormContext<TEditUserFormSchema>();
 
 	return (
 		<FormField
 			control={form.control}
-			name="name"
+			name="password"
 			render={({ field }) => (
 				<FormItem className="flex flex-col justify-between">
 					<div>
-						<FormLabel>Role Name</FormLabel>
+						<FormLabel>User Password</FormLabel>
 						<FormDescription>
-							Give the role a simple name people will understand. Something basic like
-							Support Tier 2.
+							Modify the users password incase they forget it.
 						</FormDescription>
 					</div>
 					<div className="max-w-md w-full min-w-[20rem] mt-1">
 						<FormControl>
-							<Input
-								disabled={!hasPermission(Permissions.ModifyRoles)}
-								placeholder="User Tier 2"
-								{...field}
-							/>
+							<Input type="password" placeholder="••••••••••" {...field} />
 						</FormControl>
 						<FormMessage />
 					</div>
