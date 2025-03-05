@@ -172,6 +172,32 @@
   },
   {
     "ContainingType": "api.Controllers.PlayersController",
+    "Method": "GetPlayerByCitizenId",
+    "RelativePath": "api/players/{citizenId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "citizenId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "api.DTOs.Response.PlayerDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "api.Controllers.PlayersController",
     "Method": "SearchPlayers",
     "RelativePath": "api/players/search",
     "HttpMethod": "POST",

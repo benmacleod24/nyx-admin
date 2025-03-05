@@ -36,6 +36,7 @@ export const ApiEndponts = {
 	},
 	Players: {
 		Search: "/api/players/search",
+		Get: (citizenId: string) => `/api/players/${citizenId}`,
 	},
 	TableColumns: {
 		Get: (tableKey: string) => `/api/tablecolumns/${tableKey}`,

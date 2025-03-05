@@ -49,6 +49,15 @@ namespace api.Services.CharacterService
             };
         }
 
+        public async Task<PlayerDTO?> GetPlayerByCitizenId(string citizenId)
+        {
+            Player? player = await _gameContext.Players
+                .Where(p => p.Citizenid == citizenId)
+                .SingleOrDefaultAsync();
+
+            return _mapper.Map<PlayerDTO?>(player);
+        }
+
         private IEnumerable<Player> BuildPlayerFilters(IEnumerable<Player> query, List<SearchFilter> filters)
         {
             if (filters == null || filters.Count == 0)
