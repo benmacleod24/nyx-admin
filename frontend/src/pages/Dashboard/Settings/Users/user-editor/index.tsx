@@ -1,12 +1,7 @@
 import { Form } from "@/components/ui/form";
-import { useAuth } from "@/hooks";
-import {
-	editingUserAtom,
-	shouldAniamteUnsavedUserChangesAtom,
-	unsavedUserChangesAtom,
-} from "@/lib/state/pages/manage-users";
+import { editingUserAtom, unsavedUserChangesAtom } from "@/lib/state/pages/manage-users";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,36 +9,41 @@ import EditUserPassword from "./edit-password";
 import { Separator } from "@/components/ui/separator";
 import EditUserRole from "./edit-role";
 import SaveBar from "./save-bar";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Loader, Save } from "lucide-react";
+import EditIsDisabled from "./edit-is-disabled";
+import EditUsername from "./edit-username";
+import { Fetch } from "@/lib";
+import { ApiEndponts, Permissions } from "@/lib/config";
+import { TUser } from "@/types";
+import { mutate } from "swr";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks";
 
 export type TEditUserFormSchema = z.infer<typeof editUserFormSchema>;
 const editUserFormSchema = z.object({
 	username: z.string(),
-	roleId: z.ostring(),
+	roleKey: z.ostring(),
 	password: z.ostring(),
+	isDisabled: z.boolean(),
 });
 
 export default function UserEditor() {
+	const { toast } = useToast();
+	const { hasPermission } = useAuth();
 	const [editingUser, setEditingUser] = useAtom(editingUserAtom);
-	const [unsavedChanges, setUnsavedUserChanges] = useAtom(unsavedUserChangesAtom);
-	const shouldAniamteUnsaveChanges = useAtomValue(shouldAniamteUnsavedUserChangesAtom);
+	const setUnsavedUserChanges = useSetAtom(unsavedUserChangesAtom);
 
 	const getDefaultValues = useCallback(async () => {
 		return editUserFormSchema.parse({
 			username: editingUser?.userName || "",
-			roleId: editingUser?.role!.key || "",
+			roleKey: editingUser?.role!.key || "",
+			isDisabled: editingUser?.isDisabled || false,
+			password: "",
 		});
-	}, [editingUser]);
-
-	useEffect(() => {
-		console.log(editingUser);
 	}, [editingUser]);
 
 	const form = useForm<TEditUserFormSchema>({
 		resolver: zodResolver(editUserFormSchema),
-		// defaultValues: getDefaultValues,
+		defaultValues: getDefaultValues,
 	});
 
 	useEffect(() => {
@@ -56,11 +56,45 @@ export default function UserEditor() {
 	}, [isDirty]);
 
 	async function onSubmit(values: TEditUserFormSchema) {
-		// Submit form.
+		if (!editingUser) return;
+		if (!hasPermission(Permissions.ModifyUsers)) return;
+
+		const resp = await Fetch.Put<TUser>(
+			ApiEndponts.Users.UpdateUser(editingUser.id.toString()),
+			{
+				includeCredentials: true,
+				body: {
+					userId: editingUser.id,
+					userName: values.username,
+					password: values.password,
+					roleKey: values.roleKey,
+					isDisabled: values.isDisabled,
+				},
+			}
+		);
+
+		if (resp.ok && resp.data) {
+			await mutate(ApiEndponts.User.GetAllUsers);
+			setEditingUser(resp.data);
+			await resetForm();
+			return;
+		}
+
+		if (!resp.ok) {
+			toast({
+				title: "Error Occured",
+				description: resp.message || "Internal Service Error",
+				variant: "destructive",
+			});
+		}
 	}
 
 	async function resetForm() {
-		form.reset(await getDefaultValues());
+		form.reset(await getDefaultValues(), {
+			keepValues: false,
+			keepDefaultValues: false,
+			keepDirty: false,
+		});
 	}
 
 	if (!editingUser) return;
@@ -78,50 +112,14 @@ export default function UserEditor() {
 			<div className="p-5 px-10">
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)}>
-						{/* <EditUserRole /> */}
+						<EditUsername />
+						<Separator className="my-7" />
+						<EditUserRole />
 						<Separator className="my-7" />
 						<EditUserPassword />
 						<Separator className="my-7" />
-
-						{form.formState.isDirty && (
-							<div className="absolute bottom-5 max-w-2xl left-1/2 w-full -translate-x-1/2 flex items-center justify-center">
-								<div
-									className={cn(
-										"flex items-center justify-between w-full z-[100] transition-all bg-zinc-900 p-2 pl-3 border rounded-lg",
-										shouldAniamteUnsaveChanges &&
-											"animate-shake border-red-500",
-										unsavedChanges && "opacity-100 pointer-events-auto",
-										!unsavedChanges && "opacity-0 pointer-events-none"
-									)}
-								>
-									<p className="">Careful — you have unsaved changes!</p>
-									<div className="flex items-center gap-2">
-										<Button
-											variant={"link"}
-											size={"sm"}
-											onClick={(e) => {
-												// e.preventDefault();
-												resetForm();
-											}}
-										>
-											Reset
-										</Button>
-										<Button
-											size={"sm"}
-											type="submit"
-											className="bg-green-500 text-white hover:bg-green-600"
-										>
-											{form.formState.isSubmitting ? (
-												<Loader className="animate-spin" />
-											) : (
-												<Save />
-											)}{" "}
-											Save Changes
-										</Button>
-									</div>
-								</div>
-							</div>
-						)}
+						<EditIsDisabled />
+						<SaveBar resetForm={resetForm} />
 					</form>
 				</Form>
 			</div>

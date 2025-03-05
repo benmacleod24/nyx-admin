@@ -41,25 +41,16 @@ export default function SidebarFooter() {
 											user &&
 											`https://avatar.vercel.sh/${
 												user.userName
-											}.svg?text=${user.userName
-												.slice(0, 2)
-												.toUpperCase()}`
+											}.svg?text=${user.userName.slice(0, 2).toUpperCase()}`
 										}
 									/>
 									<AvatarFallback>
-										{user &&
-											user.userName
-												.slice(0, 2)
-												.toUpperCase()}
+										{user && user.userName.slice(0, 2).toUpperCase()}
 									</AvatarFallback>
 								</Avatar>
 								<div className="grid flex-1 text-left ml-1 text-sm leading-tight">
-									<span className="truncate font-semibold">
-										{user.userName}
-									</span>
-									<span className="truncate text-xs">
-										{role?.friendlyName}
-									</span>
+									<span className="truncate font-semibold">{user.userName}</span>
+									<span className="truncate text-xs">{role?.friendlyName}</span>
 								</div>
 								<ChevronsUpDown className="ml-auto size-4" />
 							</SidebarMenuButton>
@@ -75,12 +66,12 @@ export default function SidebarFooter() {
 									{idx ? <DropdownMenuSeparator /> : ""}
 									<DropdownMenuGroup>
 										{group.map((option, index) => (
-											<WithLink
-												key={index + idx}
-												href={option.href}
-												withLink
-											>
-												<DropdownMenuItem>
+											<WithLink key={index + idx} href={option.href} withLink>
+												<DropdownMenuItem
+													onClick={
+														option.onClick ? option.onClick : () => {}
+													}
+												>
 													<option.icon />
 													{option.title}
 												</DropdownMenuItem>

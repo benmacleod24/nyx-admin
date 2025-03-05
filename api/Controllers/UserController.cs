@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using System.Text.Json;
 using api.DTOs.Response;
 using api.Services.RoleService;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +30,8 @@ namespace api.Controllers
             }
 
             List<PermissionDTO> permissions = await _roleService.GetRolePermissionsByKey(roleKey);
+
+            Console.WriteLine(JsonSerializer.Serialize(permissions));
 
             return Ok(permissions);
         }

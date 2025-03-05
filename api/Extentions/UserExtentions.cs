@@ -12,7 +12,8 @@ namespace api.Extentions
                 Id = user.Id,
                 UserName = user.Username,
                 Email = user.Email,
-                Role = user.Role != null ? user.Role.ToDTO() : null
+                Role = user.Role != null ? user.Role.ToDTO() : null,
+                IsDisabled = user.IsDisabled,
             };
         }
 
@@ -23,7 +24,9 @@ namespace api.Extentions
                 Id = user.Id,
                 UserName = user.Username,
                 Email = user.Email,
-                Password = plaintextPassword
+                Password = plaintextPassword,
+                IsDisabled = user.IsDisabled
+                
             };
         }
     }

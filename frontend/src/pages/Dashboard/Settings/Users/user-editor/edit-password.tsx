@@ -9,8 +9,11 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks";
+import { Permissions } from "@/lib/config";
 
 export default function EditUserPassword() {
+	const { hasPermission } = useAuth();
 	const form = useFormContext<TEditUserFormSchema>();
 
 	return (
@@ -27,7 +30,12 @@ export default function EditUserPassword() {
 					</div>
 					<div className="max-w-md w-full min-w-[20rem] mt-1">
 						<FormControl>
-							<Input type="password" placeholder="••••••••••" {...field} />
+							<Input
+								disabled={!hasPermission(Permissions.ModifyUsers)}
+								type="password"
+								placeholder="••••••••••"
+								{...field}
+							/>
 						</FormControl>
 						<FormMessage />
 					</div>

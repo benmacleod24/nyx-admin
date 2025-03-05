@@ -6,6 +6,7 @@ using api.Services.UserService;
 using api.Services.PasswordHasher;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace api.Controllers
 {
@@ -88,6 +89,11 @@ namespace api.Controllers
                 throw new Exception("User not found.");
             }
 
+            if (userData.IsDisabled)
+            {
+                return Unauthorized();
+            }
+
             // Generate new refresh & auth tokens.
             string newRefreshToken = authService.CreateRefreshToken();
             string newAuthToken = await authService.CreateAuthToken(userData);
@@ -97,6 +103,8 @@ namespace api.Controllers
 
             // Set new token in DB and Cookies.
             await SetRefreshToken(refreshTokenData.UserId, newRefreshToken);
+
+            Console.WriteLine(JsonSerializer.Serialize(userData));
 
             return Ok(new
             {

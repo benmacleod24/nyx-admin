@@ -9,7 +9,6 @@ namespace api.Middleware
         public GlobalExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
-     
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -30,7 +29,7 @@ namespace api.Middleware
 
             ApiErrorResponse response = new ApiErrorResponse
             {
-                Message = exception.Message,
+                Message = exception.InnerException != null ? exception.InnerException.Message : exception.Message,
                 ErrorType = "InternalServerError",
                 StatusCode = StatusCodes.Status500InternalServerError
             };

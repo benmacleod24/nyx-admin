@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using api.DTOs.Request;
 using api.DTOs.Response;
 using api.Services.PermissionService;
 using api.Services.UserService;
@@ -31,6 +32,20 @@ namespace api.Controllers
 
             List<UserDTO> users = await _userService.GetAllUsers();
             return Ok(users);
+        }
+
+        [HttpPut("{userId}")]
+        [Authorize]
+        public async Task<ActionResult> UpdateUser(int userId, [FromBody] UpdateUserDTO updatedUser)
+        {
+            string? userRoleKey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRoleKey == null) return Unauthorized();
+            if (!await _permissionService.DoesRoleHavePermission(userRoleKey, "MODIFY_USERS")) return Unauthorized();
+
+            updatedUser.UserId = userId;
+            UserDTO? user = await _userService.UpdateUser(updatedUser);
+            return Ok(user);
         }
     }
 }

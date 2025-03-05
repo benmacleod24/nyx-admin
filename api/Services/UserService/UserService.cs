@@ -130,5 +130,58 @@ namespace api.Services.UserService
 
             return role;
         }
+
+        public async Task<UserDTO?> UpdateUser(UpdateUserDTO updatedUser)
+        {
+            User? user = await dbContext.Users
+                .Include(u => u.Role)
+                .Where(u => u.Id == updatedUser.UserId)
+                .SingleOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new Exception($"User ({updatedUser.UserId}) not found.");
+            }
+
+            if (updatedUser.UserName != null && !user.Username.Equals(updatedUser.UserName))
+            {
+                User? userWithThatUsername = await dbContext.Users
+                    .Where(u => u.Username.Equals(updatedUser.UserName))
+                    .SingleOrDefaultAsync();
+
+                if (userWithThatUsername != null)
+                {
+                    throw new Exception("Username is already taken.");
+                }
+
+                user.Username = updatedUser.UserName;
+            }
+
+            if (!user.Role.Key.Equals(updatedUser.RoleKey))
+            {
+                Role? role = await dbContext.Roles
+                    .Where(r => r.Key.Equals(updatedUser.RoleKey))
+                    .SingleOrDefaultAsync();
+
+                if (role == null)
+                {
+                    throw new Exception("Request role not found.");
+                }
+
+                user.RoleId = role.Id;
+            }
+
+            if (updatedUser.Password != null)
+            {
+                string? hashedPassword = passwordHasher.HashPassword(updatedUser.Password);
+                user.Password = hashedPassword;
+            }
+
+            // Disabled/Enable the user account.
+            user.IsDisabled = updatedUser.IsDisabled;
+
+            await dbContext.SaveChangesAsync();
+            return _mapper.Map<UserDTO>(user);
+        }
     }
 }

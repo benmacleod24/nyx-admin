@@ -1,7 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { TEditUserFormSchema } from ".";
 import {
-	Form,
 	FormControl,
 	FormDescription,
 	FormField,
@@ -17,7 +16,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import useSWR from "swr";
-import { ApiEndponts } from "@/lib/config";
+import { ApiEndponts, Permissions } from "@/lib/config";
 import { TRole } from "@/types";
 import ContentLoader from "@/components/ui/content-loader";
 import React from "react";
@@ -25,14 +24,14 @@ import { useAuth } from "@/hooks";
 
 export default function EditUserRole() {
 	const form = useFormContext<TEditUserFormSchema>();
-	const { role } = useAuth();
+	const { role, hasPermission } = useAuth();
 
 	const { data, error, isLoading } = useSWR<TRole[]>(ApiEndponts.Roles.GetRoles);
 
 	return (
 		<FormField
 			control={form.control}
-			name="roleId"
+			name="roleKey"
 			render={({ field }) => (
 				<FormItem className="flex flex-col justify-between">
 					<div>
@@ -43,6 +42,7 @@ export default function EditUserRole() {
 					</div>
 					<div className="max-w-md w-full min-w-[20rem] mt-1">
 						<Select
+							disabled={!hasPermission(Permissions.ModifyUsers)}
 							onValueChange={(v) => {
 								if (!v) return;
 								field.onChange(v);

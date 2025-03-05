@@ -2,11 +2,11 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { TRole } from "@/types";
-import { GripVertical, Lock } from "lucide-react";
+import { GripVertical, Lock, User } from "lucide-react";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Fetch } from "@/lib";
-import { ApiEndponts } from "@/lib/config";
+import { ApiEndponts, Permissions } from "@/lib/config";
 import { mutate } from "swr";
 import { useAtom, useSetAtom } from "jotai";
 import {
@@ -81,7 +81,7 @@ function RoleOption(props: {
 	onDrop: (s: number, e: number) => void;
 }) {
 	const [hovered, setHovered] = useState(false);
-	const { role: userRole } = useAuth();
+	const { role: userRole, hasPermission } = useAuth();
 
 	const setAnimateUnsavedChanges = useSetAtom(shouldAniamteUnsaveChangesAtom);
 	const [activeEditingRole, setActiveEditingRole] = useAtom(editingRoleAtom);
@@ -164,7 +164,7 @@ function RoleOption(props: {
 				)}
 			</pre> */}
 			<div
-				draggable={isDroppable}
+				draggable={isDroppable && hasPermission(Permissions.ModifyRoles)}
 				onDrag={handleDragStart}
 				onDragOver={handleDragOver}
 				onDragLeave={() => setHovered(false)}
@@ -172,13 +172,20 @@ function RoleOption(props: {
 				onDrop={handleDrop}
 				onClick={handleRoleClick}
 				className={cn(
-					"flex items-center border rounded-lg p-2 gap-2 select-none",
-					isDroppable && "cursor-move hover:bg-muted transition-all",
+					"flex items-center border rounded-lg p-2 gap-2 select-none cursor-pointer",
+					isDroppable && "hover:bg-muted transition-all",
 					!isDroppable && "cursor-not-allowed text-muted-foreground",
-					activeEditingRole && activeEditingRole.id === props.role.id && "bg-muted"
+					activeEditingRole && activeEditingRole.id === props.role.id && "bg-muted",
+					hasPermission(Permissions.ModifyRoles) && "cursor-move"
 				)}
 			>
-				{!isDroppable ? <Lock size={15} /> : <GripVertical size={18} />}
+				{!isDroppable ? (
+					<Lock size={15} />
+				) : hasPermission(Permissions.ModifyRoles) ? (
+					<GripVertical size={18} />
+				) : (
+					<User size={18} />
+				)}
 				<Avatar className="w-3.5 h-3.5">
 					<AvatarImage
 						src={`https://avatar.vercel.sh/${props.role.friendlyName}.svg`}

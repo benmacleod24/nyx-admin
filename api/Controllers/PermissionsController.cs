@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using System.Text.Json;
 using api.DTOs.Response;
 using api.Services.PermissionService;
 using api.Services.RoleService;
@@ -23,6 +24,7 @@ namespace api.Controllers
         public async Task<ActionResult> GetUserPermissions()
         {
             List<PermissionDTO> permissions = await _permissionService.GetAllPermissions();
+            Console.WriteLine(JsonSerializer.Serialize(permissions));
             return Ok(permissions);
         }
     }

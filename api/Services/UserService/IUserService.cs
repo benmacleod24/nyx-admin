@@ -13,5 +13,6 @@ namespace api.Services.UserService
         public Task<bool> DoesUsernameExist(string userName);
         public string GenerateRandomPassword();
         public Task<RoleDTO?> GetUserRoleById(int userId);
+        public Task<UserDTO?> UpdateUser(UpdateUserDTO user);
     }
 }

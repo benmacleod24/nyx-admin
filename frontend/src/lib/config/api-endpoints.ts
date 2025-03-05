@@ -5,6 +5,7 @@ export const ApiEndponts = {
 		Refresh: "/api/auth/refresh",
 		Login: "/api/auth/login",
 		Register: "/api/auth/register",
+		Logout: "/api/auth/logout",
 	},
 	Permissions: {
 		Get: "/api/permissions",
@@ -12,6 +13,15 @@ export const ApiEndponts = {
 	User: {
 		GetPermissions: "/api/user/permissions",
 		GetAllUsers: "/api/users",
+	},
+	Logs: {
+		GetAllLogs: "/api/logs",
+		MetadataKeys: "/api/logs/metadata/keys",
+		Search: "/api/logs/search",
+		GetLogById: (v: string) => `/api/logs/${v}`,
+	},
+	Users: {
+		UpdateUser: (userId: string) => `/api/users/${userId}`,
 	},
 	Roles: {
 		Create: "/api/roles",
@@ -23,5 +33,11 @@ export const ApiEndponts = {
 		RemovePermission: (roleKey: string, permissionId: number) =>
 			`/api/roles/${roleKey}/permissions/${permissionId}`,
 		DeleteRole: (roleKey: string) => `/api/roles/${roleKey}`,
+	},
+	Players: {
+		Search: "/api/players/search",
+	},
+	TableColumns: {
+		Get: (tableKey: string) => `/api/tablecolumns/${tableKey}`,
 	},
 } as const;

@@ -1,6 +1,7 @@
 using api.Common;
 using api.Extentions;
 using api.Models;
+using api.Models.Game;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,14 @@ builder.Services.AddDbContextPool<DatabaseContext>(options =>
     )
 );
 
-
+builder.Services.AddDbContextPool<GameDataContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("Game_DB_Connection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("Game_DB_Connection")),
+        options => options
+                    .UseNewtonsoftJson(MySqlCommonJsonChangeTrackingOptions.FullHierarchyOptimizedFast)
+    )
+);
 
 builder.Services.AddAuthorization();
 

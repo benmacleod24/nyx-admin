@@ -6,6 +6,7 @@ export type TMenuItem = {
 	title: string;
 	href?: string;
 	permissions?: string[];
+	roles?: string[];
 	children?: { title: string; href: string; permissions?: string[] }[];
 	onClick?: () => void;
 };
@@ -30,6 +31,11 @@ export const MenuOptions: TMenuItem[] = [
 		title: "Settings",
 		icon: Settings,
 		children: [
+			{
+				href: "/settings",
+				title: "General",
+				permissions: [Permissions.ViewSystemSettings],
+			},
 			{
 				href: "/settings/users",
 				title: "Users",

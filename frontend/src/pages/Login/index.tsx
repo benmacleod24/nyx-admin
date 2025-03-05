@@ -1,11 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -47,7 +41,7 @@ export default function LoginPage() {
 			setUser(res.data.data);
 			navigate(redirect === "" || !redirect ? "/" : redirect);
 		} else {
-			form.setError("root", { message: res.message });
+			form.setError("root", { message: res.message || "Internal Service Error" });
 		}
 	}
 
@@ -63,22 +57,17 @@ export default function LoginPage() {
 			<div className="max-w-[25rem] rounded-lg overflow-hidden border relative">
 				<img
 					className="w-full h-full object-cover object-center grayscale"
-					src="https://cdn.discordapp.com/attachments/1134640027691917343/1318173921660370974/2.0-announcement.png?ex=67771d61&is=6775cbe1&hm=f543882f6467c2ff854fba2d162830ac2ecce50f4a2136042a0f45eda899de9d&"
+					src="./banner.png"
 				/>
 				<div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-brand/50 via-brand/20 to-brand/10" />
 			</div>
 			<div className="rounded-lg border p-6 w-[25rem]">
 				<div className="flex flex-col">
 					<h1 className="text-xl font-bold">Welcome Back!</h1>
-					<p className="text-muted-foreground text-sm">
-						Login to your NYX Admin Account
-					</p>
+					<p className="text-muted-foreground text-sm">Login to your NYX Admin Account</p>
 				</div>
 				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className="mt-5 grid gap-3"
-					>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 grid gap-3">
 						<FormField
 							control={form.control}
 							name="username"
@@ -86,10 +75,7 @@ export default function LoginPage() {
 								<FormItem>
 									<FormLabel>Username</FormLabel>
 									<FormControl>
-										<Input
-											placeholder="jamesscott"
-											{...field}
-										/>
+										<Input placeholder="jamesscott" {...field} />
 									</FormControl>
 								</FormItem>
 							)}
@@ -101,11 +87,7 @@ export default function LoginPage() {
 								<FormItem>
 									<FormLabel>Password</FormLabel>
 									<FormControl>
-										<Input
-											type="password"
-											placeholder="•••••••••"
-											{...field}
-										/>
+										<Input type="password" placeholder="•••••••••" {...field} />
 									</FormControl>
 								</FormItem>
 							)}

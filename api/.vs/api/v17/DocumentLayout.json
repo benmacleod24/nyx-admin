@@ -3,16 +3,84 @@
   "WorkspaceRootPath": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\dtos\\response\\playerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:dtos\\response\\playerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\charinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\charinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Migrations\\20250305030545_ui_table_columns.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250305030545_ui_table_columns.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\controllers\\tablecolumnscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:controllers\\tablecolumnscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\extentions\\servicecollectionextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:extentions\\servicecollectionextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\services\\tablecolumnsservice\\tablecolumnservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:services\\tablecolumnsservice\\tablecolumnservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\services\\roleservice\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:services\\roleservice\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\services\\tablecolumnsservice\\itablecolumnsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:services\\tablecolumnsservice\\itablecolumnsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\dtos\\request\\createuitablecolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:dtos\\request\\createuitablecolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\services\\roleservice\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:services\\roleservice\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\uitablecolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\uitablecolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\ban.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\ban.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\gamedatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\gamedatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\gangaffiliation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\gangaffiliation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\grade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\grade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\playerjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\playerjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|c:\\users\\benst\\onedrive\\documents\\code\\nyx-admin\\api\\models\\game\\playermoney.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78725308-0A79-4FDA-AD3A-1C03CD4966C6}|api.csproj|solutionrelative:models\\game\\playermoney.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,50 +90,266 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerDTO.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\DTOs\\Response\\PlayerDTO.cs",
+              "RelativeDocumentMoniker": "DTOs\\Response\\PlayerDTO.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\DTOs\\Response\\PlayerDTO.cs",
+              "RelativeToolTip": "DTOs\\Response\\PlayerDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T03:18:23.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20250305030545_ui_table_columns.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Migrations\\20250305030545_ui_table_columns.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250305030545_ui_table_columns.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Migrations\\20250305030545_ui_table_columns.cs",
+              "RelativeToolTip": "Migrations\\20250305030545_ui_table_columns.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T03:05:45.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TableColumnsController.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Controllers\\TableColumnsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TableColumnsController.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Controllers\\TableColumnsController.cs",
+              "RelativeToolTip": "Controllers\\TableColumnsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T02:59:09.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ServiceCollectionExtentions.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Extentions\\ServiceCollectionExtentions.cs",
+              "RelativeDocumentMoniker": "Extentions\\ServiceCollectionExtentions.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Extentions\\ServiceCollectionExtentions.cs",
+              "RelativeToolTip": "Extentions\\ServiceCollectionExtentions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T02:14:51.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CreateUITableColumn.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\DTOs\\Request\\CreateUITableColumn.cs",
+              "RelativeDocumentMoniker": "DTOs\\Request\\CreateUITableColumn.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\DTOs\\Request\\CreateUITableColumn.cs",
+              "RelativeToolTip": "DTOs\\Request\\CreateUITableColumn.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:34:29.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RoleService.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\RoleService\\RoleService.cs",
+              "RelativeDocumentMoniker": "Services\\RoleService\\RoleService.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\RoleService\\RoleService.cs",
+              "RelativeToolTip": "Services\\RoleService\\RoleService.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:33:40.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TableColumnService.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\TableColumnsService\\TableColumnService.cs",
+              "RelativeDocumentMoniker": "Services\\TableColumnsService\\TableColumnService.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\TableColumnsService\\TableColumnService.cs",
+              "RelativeToolTip": "Services\\TableColumnsService\\TableColumnService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:27:10.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ITableColumnsService.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\TableColumnsService\\ITableColumnsService.cs",
+              "RelativeDocumentMoniker": "Services\\TableColumnsService\\ITableColumnsService.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\TableColumnsService\\ITableColumnsService.cs",
+              "RelativeToolTip": "Services\\TableColumnsService\\ITableColumnsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:25:16.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CharInfo.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\CharInfo.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\CharInfo.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\CharInfo.cs",
+              "RelativeToolTip": "Models\\Game\\CharInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:03.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\Player.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\Player.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\Player.cs",
+              "RelativeToolTip": "Models\\Game\\Player.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:11.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IRoleService.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\RoleService\\IRoleService.cs",
+              "RelativeDocumentMoniker": "Services\\RoleService\\IRoleService.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Services\\RoleService\\IRoleService.cs",
+              "RelativeToolTip": "Services\\RoleService\\IRoleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:29:17.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DatabaseContext.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseContext.cs",
+              "RelativeDocumentMoniker": "Models\\DatabaseContext.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseContext.cs",
+              "RelativeToolTip": "Models\\DatabaseContext.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowEEAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:02:05.952Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAEYAAAAhAAAAAAAAAA==",
+              "DocumentIndex": 12,
+              "Title": "UITableColumn.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\UITableColumn.cs",
+              "RelativeDocumentMoniker": "Models\\UITableColumn.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\UITableColumn.cs",
+              "RelativeToolTip": "Models\\UITableColumn.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-07T16:47:47.515Z",
+              "WhenOpened": "2025-03-05T01:12:59.813Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 13,
               "Title": "DatabaseSeeder.cs",
               "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseSeeder.cs",
               "RelativeDocumentMoniker": "Models\\DatabaseSeeder.cs",
               "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseSeeder.cs",
               "RelativeToolTip": "Models\\DatabaseSeeder.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAgwD0AAAC7AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAACEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-07T16:12:42.856Z",
+              "WhenOpened": "2025-03-05T01:02:06.189Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DatabaseContext.cs",
-              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseContext.cs",
-              "RelativeDocumentMoniker": "Models\\DatabaseContext.cs",
-              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\DatabaseContext.cs",
-              "RelativeToolTip": "Models\\DatabaseContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
+              "DocumentIndex": 14,
+              "Title": "Ban.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\Ban.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\Ban.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\Ban.cs",
+              "RelativeToolTip": "Models\\Game\\Ban.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-07T15:45:52.243Z",
+              "WhenOpened": "2025-03-02T14:34:17.928Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PlayerMoney.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\PlayerMoney.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\PlayerMoney.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\PlayerMoney.cs",
+              "RelativeToolTip": "Models\\Game\\PlayerMoney.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:12.449Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PlayerJob.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\PlayerJob.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\PlayerJob.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\PlayerJob.cs",
+              "RelativeToolTip": "Models\\Game\\PlayerJob.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:11.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Grade.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\Grade.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\Grade.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\Grade.cs",
+              "RelativeToolTip": "Models\\Game\\Grade.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:10.643Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "GangAffiliation.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\GangAffiliation.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\GangAffiliation.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\GangAffiliation.cs",
+              "RelativeToolTip": "Models\\Game\\GangAffiliation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:09.929Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "GameDataContext.cs",
+              "DocumentMoniker": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\GameDataContext.cs",
+              "RelativeDocumentMoniker": "Models\\Game\\GameDataContext.cs",
+              "ToolTip": "C:\\Users\\benst\\OneDrive\\Documents\\code\\nyx-admin\\api\\Models\\Game\\GameDataContext.cs",
+              "RelativeToolTip": "Models\\Game\\GameDataContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:34:08.939Z"
             }
           ]
         }

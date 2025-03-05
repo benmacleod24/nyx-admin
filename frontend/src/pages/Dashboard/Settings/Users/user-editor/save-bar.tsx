@@ -1,25 +1,26 @@
 import { useFormContext } from "react-hook-form";
 import { TEditUserFormSchema } from ".";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import {
-	editingUserAtom,
 	shouldAniamteUnsavedUserChangesAtom,
 	unsavedUserChangesAtom,
 } from "@/lib/state/pages/manage-users";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Loader, Save } from "lucide-react";
-import { useEffect } from "react";
+import Fade from "@/components/ui/fade";
 
 export default function SaveBar(props: { resetForm: () => void }) {
 	const form = useFormContext<TEditUserFormSchema>();
 
-	const editingUser = useAtomValue(editingUserAtom);
 	const unsavedChanges = useAtomValue(unsavedUserChangesAtom);
 	const shouldAnimateUnsavedChanges = useAtomValue(shouldAniamteUnsavedUserChangesAtom);
 
 	return (
-		<div className="absolute bottom-5 max-w-2xl left-1/2 w-full -translate-x-1/2 flex items-center justify-center">
+		<Fade
+			open={unsavedChanges}
+			className="absolute max-w-2xl bottom-5 w-full flex items-center justify-center"
+		>
 			<div
 				className={cn(
 					"flex items-center justify-between w-full z-[100] transition-all bg-zinc-900 p-2 pl-3 border rounded-lg",
@@ -54,6 +55,6 @@ export default function SaveBar(props: { resetForm: () => void }) {
 					</Button>
 				</div>
 			</div>
-		</div>
+		</Fade>
 	);
 }

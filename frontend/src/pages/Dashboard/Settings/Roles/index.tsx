@@ -10,13 +10,12 @@ import RoleEditor from "./role-editor";
 import { useEffect, useState } from "react";
 import RoleSelector from "./role-selector";
 import { Search } from "lucide-react";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { editingRoleAtom } from "@/lib/state/pages/manage-roles";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function RoleSettingsPage() {
 	const { hasPermission, isPermissionsReady, role: userRole, isLoggedIn } = useAuth();
-	const [location, navigate] = useLocation();
+	const [_, navigate] = useLocation();
 	const [filter, setFilter] = useState("");
 
 	const [editingRole, setEditingRole] = useAtom(editingRoleAtom);
@@ -45,7 +44,7 @@ export default function RoleSettingsPage() {
 	}
 
 	return (
-		<DashboardLayout className="px-0 pt-0 flex flex-col relative">
+		<DashboardLayout className="px-0 pt-0 flex flex-col relative overflow-hidden">
 			<div className="w-full h-full grid grid-cols-4">
 				<div className="w-full col-span-1 border-r h-full">
 					<div className="w-full h-20 mb-5 flex flex-col justify-center border-b px-5">

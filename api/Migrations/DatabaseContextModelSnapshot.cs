@@ -22,6 +22,57 @@ namespace api.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("api.Models.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("api.Models.LogMetadataEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("LogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LogId", "Key")
+                        .IsUnique();
+
+                    b.ToTable("LogMetadataEntries");
+                });
+
             modelBuilder.Entity("api.Models.Permission", b =>
                 {
                     b.Property<int>("Id")
@@ -47,36 +98,6 @@ namespace api.Migrations
                         .IsUnique();
 
                     b.ToTable("Permissions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Allow the user to view roles.",
-                            FriendlyName = "View Roles",
-                            Key = "VIEW_ROLES"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Allow the user to create new roles.",
-                            FriendlyName = "Create Roles",
-                            Key = "CREATE_ROLE"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Allow the user to modify role permissions and order. Keep in mind they will be able to modify any permissions for roles below them.",
-                            FriendlyName = "Modify Roles",
-                            Key = "MODIFY_ROLES"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Allow the user to delete roles.",
-                            FriendlyName = "Delete Roles",
-                            Key = "DELETE_ROLES"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.RefreshToken", b =>
@@ -143,28 +164,6 @@ namespace api.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CanBeDeleted = false,
-                            CanBeEdited = false,
-                            CreatedAt = new DateTime(2025, 1, 5, 22, 34, 11, 570, DateTimeKind.Utc).AddTicks(800),
-                            FriendlyName = "Super Admin",
-                            Key = "SUPER_ADMIN",
-                            OrderLevel = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CanBeDeleted = false,
-                            CanBeEdited = true,
-                            CreatedAt = new DateTime(2025, 1, 5, 22, 34, 11, 570, DateTimeKind.Utc).AddTicks(810),
-                            FriendlyName = "User",
-                            Key = "USER",
-                            OrderLevel = 0
-                        });
                 });
 
             modelBuilder.Entity("api.Models.RolePermission", b =>
@@ -188,32 +187,31 @@ namespace api.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("RolePermissions");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PermissionId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            PermissionId = 2,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            PermissionId = 3,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            PermissionId = 4,
-                            RoleId = 1
-                        });
+            modelBuilder.Entity("api.Models.UITableColumn", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FriendlyName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TableKey")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ValuePath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UITableColumns");
                 });
 
             modelBuilder.Entity("api.Models.User", b =>
@@ -230,6 +228,11 @@ namespace api.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsDisabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -243,13 +246,27 @@ namespace api.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("api.Models.LogMetadataEntry", b =>
+                {
+                    b.HasOne("api.Models.Log", "Log")
+                        .WithMany("Metadata")
+                        .HasForeignKey("LogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Log");
                 });
 
             modelBuilder.Entity("api.Models.RefreshToken", b =>
@@ -289,6 +306,11 @@ namespace api.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("api.Models.Log", b =>
+                {
+                    b.Navigation("Metadata");
                 });
 
             modelBuilder.Entity("api.Models.Permission", b =>

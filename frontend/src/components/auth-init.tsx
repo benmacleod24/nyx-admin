@@ -6,25 +6,30 @@ import { TAuthResponse } from "@/types";
 import { useAtom, useSetAtom } from "jotai";
 import { Loader } from "lucide-react";
 import React, { useCallback, useEffect } from "react";
+import { useLocation } from "wouter";
 
 export default function AuthInit(props: React.PropsWithChildren) {
 	const setAuthToken = useSetAtom(authTokenAtom);
 	const setUser = useSetAtom(userAtom);
 	const [authLoading, setAuthLoading] = useAtom(authLoadingAtom);
+	const [location, setLocation] = useLocation();
 
 	const initalizeAuth = useCallback(async () => {
 		const refreshTokenResponse = await Fetch.Get<TAuthResponse>(ApiEndponts.Auth.Refresh);
-
-		setAuthLoading(false);
 
 		// Set auth token and user data.
 		if (refreshTokenResponse.ok && refreshTokenResponse.data) {
 			setAuthToken(refreshTokenResponse.data.authToken);
 			setUser(refreshTokenResponse.data.data);
-		} else {
-			console.log("error occured while setting up login.");
+			setAuthLoading(false);
+			return;
 		}
-	}, [setAuthToken, setUser, setAuthLoading]);
+
+		if (!refreshTokenResponse.ok) {
+			setAuthLoading(false);
+			setLocation("/login");
+		}
+	}, [setAuthToken, setUser, setAuthLoading, authLoading]);
 
 	useEffect(() => {
 		initalizeAuth();

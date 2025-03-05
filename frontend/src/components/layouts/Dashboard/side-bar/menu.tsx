@@ -72,7 +72,7 @@ export function SidebarMenuOptionWithChildren(props: { option: TMenuItem }) {
 	if (props.option.permissions && !hasPermission(props.option.permissions)) return;
 
 	return (
-		<Collapsible defaultOpen={isChildActive}>
+		<Collapsible defaultOpen={isChildActive} className="group/collapsible">
 			<SidebarMenuItem>
 				<CollapsibleTrigger asChild>
 					<SidebarMenuButton>

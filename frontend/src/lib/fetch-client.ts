@@ -38,24 +38,35 @@ export async function fetchWrapper<TResponse = any, TBody = unknown>(
 		requestOptions.body = JSON.stringify(options.body);
 	}
 
-	const response = await fetch(`https://localhost:7252${uri}`, requestOptions);
-
 	try {
-		const data = await response.json();
+		const response = await fetch(`https://localhost:7252${uri}`, requestOptions);
 
-		if (!response.ok && data && data.message) {
-			return {
-				ok: response.ok,
-				message: data.message,
-			};
-		} else {
+		const contentType = response.headers.get("Content-Type");
+		if (contentType && contentType.includes("application/json")) {
+			// Parse the json
+			const data = await response.json();
+
+			// Return error message.
+			if (!response.ok && data && data.message) {
+				return {
+					ok: response.ok,
+					message: data.message,
+				};
+			}
+
+			// Return data.
 			return {
 				ok: response.ok,
 				data: data as TResponse,
 			};
 		}
+
+		return {
+			ok: response.ok,
+			data: undefined,
+		};
 	} catch (e) {
-		return { ok: response.ok, data: undefined };
+		return { ok: false, data: undefined };
 	}
 
 	return { ok: false };

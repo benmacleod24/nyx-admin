@@ -11,6 +11,7 @@ import { TUser } from "@/types";
 import { useAtom, useSetAtom } from "jotai";
 import { useState } from "react";
 import CreateUser from "./create-user";
+import { CircleAlert } from "lucide-react";
 
 export default function UserSelector(props: { users: TUser[] }) {
 	const [filter, setFilter] = useState<string>("");
@@ -50,37 +51,48 @@ export default function UserSelector(props: { users: TUser[] }) {
 
 				{/* User List */}
 				<div className="grid gap-2 mt-2">
-					{props.users
-						.filter((u) => u.id !== user.id)
-						.filter(
-							(u) =>
-								u.userName.toLowerCase().includes(filter.toLowerCase()) ||
-								u.role?.friendlyName.toLowerCase().includes(filter.toLowerCase())
-						)
-						.map((user) => (
-							<div
-								onClick={() => onUserClick(user)}
-								key={user.id}
-								className={cn(
-									"border rounded-lg p-2 pr-3 flex items-center gap-2.5 select-none cursor-pointer hover:bg-muted",
-									editingUser?.id === user.id && "bg-muted",
-									role?.orderLevel! <= user.role?.orderLevel! &&
-										"grayscale hover:bg-transparent cursor-not-allowed"
-								)}
-							>
-								<Avatar className="w-5 h-5">
-									<AvatarImage
-										src={`https://avatar.vercel.sh/${
-											user.userName
-										}.svg?text=${user.userName.slice(0, 2).toUpperCase()}`}
-									/>
-								</Avatar>
-								<p className="flex-1">{user.userName}</p>
-								<span className="text-muted-foreground text-sm">
-									{user.role?.friendlyName}
-								</span>
-							</div>
-						))}
+					{Array.isArray(props.users) && props.users.length >= 0 && (
+						<div className="flex flex-col justify-center items-center mt-10">
+							<CircleAlert className="text-red-300" />
+							<span className="text-muted-foreground text-sm mt-1">
+								No Users Found (Besides You 😉)
+							</span>
+						</div>
+					)}
+					{Array.isArray(props.users) &&
+						props.users
+							.filter((u) => u.id !== user.id)
+							.filter(
+								(u) =>
+									u.userName.toLowerCase().includes(filter.toLowerCase()) ||
+									u.role?.friendlyName
+										.toLowerCase()
+										.includes(filter.toLowerCase())
+							)
+							.map((user) => (
+								<div
+									onClick={() => onUserClick(user)}
+									key={user.id}
+									className={cn(
+										"border rounded-lg p-2 pr-3 flex items-center gap-2.5 select-none cursor-pointer hover:bg-muted",
+										editingUser?.id === user.id && "bg-muted",
+										role?.orderLevel! <= user.role?.orderLevel! &&
+											"grayscale hover:bg-transparent cursor-not-allowed"
+									)}
+								>
+									<Avatar className="w-5 h-5">
+										<AvatarImage
+											src={`https://avatar.vercel.sh/${
+												user.userName
+											}.svg?text=${user.userName.slice(0, 2).toUpperCase()}`}
+										/>
+									</Avatar>
+									<p className="flex-1">{user.userName}</p>
+									<span className="text-muted-foreground text-sm">
+										{user.role?.friendlyName}
+									</span>
+								</div>
+							))}
 				</div>
 			</div>
 		</div>

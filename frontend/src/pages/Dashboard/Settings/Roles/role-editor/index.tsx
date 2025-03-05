@@ -1,30 +1,25 @@
 import { Button } from "@/components/ui/button";
-import ContentLoader from "@/components/ui/content-loader";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Switch } from "@/components/ui/switch";
-import { useAuth } from "@/hooks";
-import { Fetch } from "@/lib";
-import { ApiEndponts, Permissions } from "@/lib/config";
+import { Form } from "@/components/ui/form";
+import { ApiEndponts } from "@/lib/config";
 import {
 	editingRoleAtom,
 	shouldAniamteUnsaveChangesAtom,
 	unsavedRoleChangesAtom,
 } from "@/lib/state/pages/manage-roles";
 import { cn } from "@/lib/utils";
-import { TRole } from "@/types";
 import { TPermission } from "@/types/api/permissions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom, useAtomValue } from "jotai";
-import { Loader, Save, Search } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useForm, useFormContext } from "react-hook-form";
-import useSWR from "swr";
-import { boolean, z, ZodBoolean } from "zod";
+import { useAtom } from "jotai";
+import { Loader, Save } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import EditRoleName from "./edit-name";
 import { Separator } from "@/components/ui/separator";
 import EditRolePermissions from "./edit-permissions";
 import DeleteRole from "./delete-role";
-import { useLocation, useRouter } from "wouter";
+import Fade from "@/components/ui/fade";
+import { Fetch } from "@/lib";
 
 export type UpdateRoleFormSchema = z.infer<typeof formSchema>;
 const formSchema = z
@@ -34,24 +29,11 @@ const formSchema = z
 	})
 	.passthrough();
 
-function permissionKeysToZodEntry() {
-	let permissionEntries: Record<string, ZodBoolean> = {};
-
-	for (const key of Object.values(Permissions)) {
-		permissionEntries[key] = z.boolean();
-	}
-
-	return permissionEntries;
-}
-
 export default function RoleEditor(props: {}) {
-	const [filter, setFilter] = useState<string>("");
 	const [permissions, setPermissions] = useState<TPermission[]>([]);
 
-	const [role, setRole] = useAtom(editingRoleAtom);
-	const [shouldAniamteUnsaveChanges, setShouldAnimateUnsaveChanges] = useAtom(
-		shouldAniamteUnsaveChangesAtom
-	);
+	const [role] = useAtom(editingRoleAtom);
+	const [shouldAniamteUnsaveChanges] = useAtom(shouldAniamteUnsaveChangesAtom);
 	const [unsavedChanges, setUnsavedChanges] = useAtom(unsavedRoleChangesAtom);
 
 	const getDefaultFormData = useCallback(async () => {
@@ -117,6 +99,8 @@ export default function RoleEditor(props: {}) {
 			},
 		});
 
+		console.log(resp);
+
 		if (resp.ok) {
 			form.reset(await getDefaultFormData());
 		}
@@ -135,15 +119,12 @@ export default function RoleEditor(props: {}) {
 				<Separator className="my-7" />
 				<EditRolePermissions permissions={permissions} />
 				<DeleteRole />
-
-				{form.formState.isDirty && (
-					<div className="absolute bottom-5 max-w-2xl left-1/2 w-full -translate-x-1/2 flex items-center justify-center">
+				<Fade open={unsavedChanges} className="max-w-2xl w-full absolute bottom-5">
+					<div className="max-w-2xl w-full flex items-center justify-center">
 						<div
 							className={cn(
 								"flex items-center justify-between w-full z-[100] transition-all bg-zinc-900 p-2 pl-3 border rounded-lg",
-								shouldAniamteUnsaveChanges && "animate-shake border-red-500",
-								unsavedChanges && "opacity-100 pointer-events-auto",
-								!unsavedChanges && "opacity-0 pointer-events-none"
+								shouldAniamteUnsaveChanges && "animate-shake border-red-500"
 							)}
 						>
 							<p className="">Careful — you have unsaved changes!</p>
@@ -173,7 +154,7 @@ export default function RoleEditor(props: {}) {
 							</div>
 						</div>
 					</div>
-				)}
+				</Fade>
 			</form>
 		</Form>
 	);

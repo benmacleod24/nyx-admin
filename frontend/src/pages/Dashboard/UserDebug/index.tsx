@@ -13,7 +13,7 @@ export default function UserDebugPage() {
 	}
 
 	return (
-		<DashboardLayout>
+		<DashboardLayout className="p-5">
 			<div>
 				<h1 className="text-xl font-semibold">User Debug</h1>
 				<p className="text-sm text-muted-foreground">
@@ -21,13 +21,13 @@ export default function UserDebugPage() {
 				</p>
 			</div>
 			<div className="grid grid-cols-3 w-full gap-3">
-				<div className="bg-muted rounded-lg border shadow p-3 border-muted-foreground mt-5 w-full overflow-auto">
+				<div className="bg-muted rounded-lg border shadow p-3 h-fit max-h-[50rem] border-muted-foreground mt-5 w-full overflow-auto">
 					<pre>{JSON.stringify(user, null, 2)}</pre>
 				</div>
-				<div className="bg-muted rounded-lg border shadow p-3 border-muted-foreground mt-5 w-full overflow-auto">
+				<div className="bg-muted rounded-lg border shadow p-3 border-muted-foreground h-fit max-h-[50rem] mt-5 w-full overflow-auto">
 					<pre>{JSON.stringify(permissions, null, 2)}</pre>
 				</div>
-				<div className="bg-muted rounded-lg border shadow p-3 border-muted-foreground mt-5 w-full overflow-auto">
+				<div className="bg-muted rounded-lg border shadow p-3 border-muted-foreground h-fit max-h-[50rem] mt-5 w-full overflow-auto">
 					<pre>{JSON.stringify(permissionKeys, null, 2)}</pre>
 				</div>
 			</div>

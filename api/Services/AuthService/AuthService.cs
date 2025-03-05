@@ -40,6 +40,11 @@ namespace api.Services.AuthService
                 throw new Exception("Invalid Username/Password");
             }
 
+            if (user.IsDisabled)
+            {
+                throw new Exception("Invalid Username/Password");
+            }
+
             bool isValidPassword = _passwordHasher.VerifyPassword(password, user.Password);
 
             // Password was invalid.

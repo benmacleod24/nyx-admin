@@ -5,4 +5,5 @@ export type TUser = {
 	email?: string;
 	userName: string;
 	role?: TRole;
+	isDisabled: boolean;
 };

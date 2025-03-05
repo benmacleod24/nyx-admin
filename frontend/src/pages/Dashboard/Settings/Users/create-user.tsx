@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -18,10 +17,10 @@ import {
 	ResponsiveModalTitle,
 	ResponsiveModalTrigger,
 } from "@/components/ui/responsive-modal";
-import { useCopyToClipboard } from "@/hooks";
+import { useAuth, useCopyToClipboard } from "@/hooks";
 import { Fetch } from "@/lib";
-import { ApiEndponts } from "@/lib/config";
-import { TRole, TUser } from "@/types";
+import { ApiEndponts, Permissions } from "@/lib/config";
+import { TUser } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check, Copy, Loader, Plus, ShieldAlertIcon } from "lucide-react";
@@ -38,6 +37,7 @@ const formSchema = z.object({
 
 export default function CreateUser() {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const { hasPermission } = useAuth();
 	const [rootAnimateRef] = useAutoAnimate();
 	const [copyAnimateRef] = useAutoAnimate();
 	const [copiedText, copy] = useCopyToClipboard();
@@ -70,6 +70,8 @@ export default function CreateUser() {
 		if (!registeredUser) return;
 		await copy(`Username: ${registeredUser.userName}\nPassword: ${registeredUser.password}`);
 	}
+
+	if (!hasPermission(Permissions.CreateUsers)) return;
 
 	return (
 		<ResponsiveModal open={isOpen} onOpenChange={setIsOpen}>
