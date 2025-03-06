@@ -33,7 +33,7 @@ namespace api.Extentions
                         .AddJob<PlayerBackgroundService>(jobKey)
                         .AddTrigger(
                             trigger => trigger.ForJob(jobKey).WithSimpleSchedule(
-                                schedule => schedule.WithIntervalInSeconds(10).RepeatForever()));
+                                schedule => schedule.WithIntervalInSeconds(30).RepeatForever()));
             });
 
             // Setup Quartz services.

@@ -14,6 +14,7 @@ namespace api.Services.BackgroundServices
 
         public Task Execute(IJobExecutionContext context)
         {
+            Console.WriteLine("Player Background Service.");
             return Task.CompletedTask;
         }
     }
