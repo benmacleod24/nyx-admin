@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { ApiEndponts } from "@/lib/config";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { TPlayer } from "@/types";
-import { ArrowLeft, BadgeCheck, Briefcase, CreditCard, MoveLeft } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Briefcase, CreditCard, MoveLeft, Users } from "lucide-react";
 import useSWR from "swr";
 import { useParams } from "wouter";
 
@@ -36,7 +36,7 @@ export default function PlayerPage() {
 					<ArrowLeft /> Back to Players
 				</Button>
 			</div>
-			<div className="grid grid-cols-3 gap-5">
+			<div className="grid grid-cols-4 gap-5">
 				<Card>
 					<CardHeader>
 						<CardTitle className="flex items-center">
@@ -89,7 +89,9 @@ export default function PlayerPage() {
 						</div>
 						<div>
 							<p className="text-sm text-muted-foreground">License</p>
-							<p className="font-mono truncate">{playerData.license.split(":")[1]}</p>
+							<p className="font-mono truncate text-sm">
+								{playerData.license.split(":")[1]}
+							</p>
 						</div>
 					</CardContent>
 				</Card>
@@ -190,6 +192,51 @@ export default function PlayerPage() {
 								</div>
 							)}
 						</div>
+					</CardContent>
+				</Card>
+
+				{/* Gang Information */}
+				<Card>
+					<CardHeader>
+						<CardTitle className="flex items-center">
+							<Users className="mr-2 h-5 w-5 text-brand mt-1" />
+							Gang Affiliation
+						</CardTitle>
+						<CardDescription>Gang membership details</CardDescription>
+					</CardHeader>
+					<CardContent>
+						{playerData.gang.name === "none" ? (
+							<div className="flex h-24 items-center justify-center">
+								<p className="text-muted-foreground">No gang affiliation</p>
+							</div>
+						) : (
+							<div className="space-y-4">
+								<div>
+									<p className="text-sm text-muted-foreground">Gang</p>
+									<p className="font-medium">{playerData.gang.label}</p>
+								</div>
+								<div className="grid grid-cols-2 gap-4">
+									<div>
+										<p className="text-sm text-muted-foreground">Rank</p>
+										<p className="font-medium">{playerData.gang.grade.name}</p>
+									</div>
+									<div>
+										<p className="text-sm text-muted-foreground">Level</p>
+										<p className="font-medium">{playerData.gang.grade.level}</p>
+									</div>
+								</div>
+								{playerData.gang.isBoss && (
+									<div className="mt-2">
+										<Badge
+											variant="outline"
+											className="border-red-500 text-red-500"
+										>
+											Gang Leader
+										</Badge>
+									</div>
+								)}
+							</div>
+						)}
 					</CardContent>
 				</Card>
 			</div>
