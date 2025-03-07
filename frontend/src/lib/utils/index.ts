@@ -48,4 +48,12 @@ export function getNestedValue<T>(obj: any, path: string): T | undefined {
 	return path.split(".").reduce((acc, key) => acc && acc[key], obj);
 }
 
+export const formatDate = (dateString: string) => {
+	return new Date(dateString).toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	});
+};
+
 export * from "./to-query";
