@@ -2,6 +2,6 @@
 {
     public interface IEconomyReportsService
     {
-        public Task<List<EconomyCirculationReport>> GetTotalEconomyCirculationReport(int daysAgo);
+        public Task<List<EconomyCirculationReport>> GetTotalEconomyCirculationReport(DateTime start, DateTime end, string grouping);
     }
 }

@@ -355,8 +355,23 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "daysAgo",
-        "Type": "System.Int32",
+        "Name": "range",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "start",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "end",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "grouping",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

@@ -27,22 +27,21 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export default function EconomyOverview() {
-	const [daysAgo, setDaysAgo] = useState("7");
+	const [daysAgo, setDaysAgo] = useState("7d:day");
 
 	const { data, isLoading } = useSWR<TEconomyOverviewReport>(
-		ApiEndponts.Reports.EconomyOverview + `?daysAgo=${daysAgo}`
+		ApiEndponts.Reports.EconomyOverview +
+			`?range=${daysAgo.split(":")[0]}&grouping=${daysAgo.split(":")[1]}`
 	);
 
 	function formatDate(date: string) {
-		if (parseInt(daysAgo) <= 1) {
+		const grouping = daysAgo.split(":")[1];
+
+		if (grouping === "hour") {
 			return dayjs.utc(date).format("h A");
 		}
 
-		if (parseInt(daysAgo) <= 7) {
-			return dayjs.utc(date).format("ddd");
-		}
-
-		if (parseInt(daysAgo) <= 30) {
+		if (grouping === "day") {
 			return dayjs.utc(date).format("ddd D");
 		}
 
@@ -64,10 +63,10 @@ export default function EconomyOverview() {
 						<SelectValue placeholder="Time Range" />
 					</SelectTrigger>
 					<SelectContent>
-						<SelectItem value="1">Past 24 Hours</SelectItem>
-						<SelectItem value="7">Past Week</SelectItem>
-						<SelectItem value="30">Past Month</SelectItem>
-						<SelectItem value="180">Past 6 Months</SelectItem>
+						<SelectItem value="1d:hour">Past 24 Hours</SelectItem>
+						<SelectItem value="7d:day">Past Week</SelectItem>
+						<SelectItem value="1m:day">Past Month</SelectItem>
+						<SelectItem value="6m:month">Past 6 Months</SelectItem>
 					</SelectContent>
 				</Select>
 			</CardHeader>
