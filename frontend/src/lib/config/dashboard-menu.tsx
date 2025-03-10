@@ -20,12 +20,14 @@ export const MenuOptions: TMenuItem[] = [
 	{
 		title: "Players",
 		icon: Users,
-		href: "/players",
+		href: "/citizens",
+		permissions: [Permissions.ViewPlayers],
 	},
 	{
 		title: "Logs",
 		href: "/logs",
 		icon: Scroll,
+		permissions: [Permissions.ViewLogs],
 	},
 	{
 		title: "Settings",

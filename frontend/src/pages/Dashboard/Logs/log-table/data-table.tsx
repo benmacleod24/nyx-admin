@@ -52,8 +52,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 										key={header.id}
 										style={{ width: `${header.getSize()}px` }}
 										className={cn(
-											"flex bg-muted/50 border-y first:border-l last:border-r first:rounded-l-lg last:rounded-r-lg",
-											header.column.id === "message" && "flex-grow"
+											"flex bg-muted/50 border-y first:border-l last:border-r first:rounded-l-lg last:rounded-r-lg last:flex-grow"
 										)}
 									>
 										{header.isPlaceholder

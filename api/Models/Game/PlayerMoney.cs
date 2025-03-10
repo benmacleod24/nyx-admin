@@ -5,8 +5,8 @@ namespace api.Models.Game
     [Owned]
     public class PlayerMoney
     {
-        public int Cash { get; set; }
-        public int Bank { get; set; }
-        public int Crypto {  get; set; }
+        public double Cash { get; set; }
+        public double Bank { get; set; }
+        public double Crypto {  get; set; }
     }
 }

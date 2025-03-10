@@ -23,7 +23,7 @@ export default function PlayersFilters() {
 
 		const newFilters = _filters.data.filter((_, index) => index !== filterIndex);
 		setLocation(
-			`/players?${toQuery({ ...searchParams, filters: JSON.stringify(newFilters) })}`
+			`/citizens?${toQuery({ ...searchParams, filters: JSON.stringify(newFilters) })}`
 		);
 	}
 

@@ -75,7 +75,9 @@ export default function AddPlayersFilter({ tableColumns }: { tableColumns?: Tabl
 		if (safeSearchFilters.success) filters = [...safeSearchFilters.data];
 		filters = [...filters, { key: values.key, method: values.operator, value: values.value }];
 
-		setLocation(`/players?${toQuery({ ...searchParams, filters: JSON.stringify(filters) })}`);
+		setLocation(
+			`/citizens?${toQuery({ ...searchParams, filters: JSON.stringify(filters), page: "1" })}`
+		);
 	}
 
 	return (

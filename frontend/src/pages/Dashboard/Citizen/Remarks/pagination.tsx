@@ -1,25 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { useSearchParam, useSearchParams } from "@/hooks";
-import { totalPlayerPagesAtom } from "@/lib/state/pages/players";
 import { toQuery } from "@/lib/utils";
-import { useAtomValue } from "jotai";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useCallback } from "react";
+import { useLocation, useParams } from "wouter";
 
-export default function Pagination() {
-	const totalPages = useAtomValue(totalPlayerPagesAtom);
+export default function CitizenRemarksPagination({ totalPages }: { totalPages: number }) {
+	const { id } = useParams<{ id: string }>();
 	const [_, setLocation] = useLocation();
 	const page = useSearchParam("page");
 	const searchParams = useSearchParams();
 	const _page = page ? parseInt(page) : 1;
 
 	const incrementPage = useCallback(() => {
-		setLocation(`/players?${toQuery({ ...searchParams, page: String(_page + 1) })}`);
+		setLocation(
+			`/citizens/${id}/remarks?${toQuery({ ...searchParams, page: String(_page + 1) })}`
+		);
 	}, [page, searchParams]);
 
 	const decrementPage = useCallback(() => {
-		setLocation(`/players?${toQuery({ ...searchParams, page: String(_page - 1) })}`);
+		setLocation(
+			`/citizens/${id}/remarks?${toQuery({ ...searchParams, page: String(_page - 1) })}`
+		);
 	}, [page, searchParams]);
 
 	if (totalPages === 1) return;

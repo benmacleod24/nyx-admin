@@ -63,7 +63,10 @@ export default function PlayerDataTable<TData, TValue>({
 			<TableBody className="grid mt-1">
 				{table.getRowModel().rows?.length ? (
 					table.getRowModel().rows.map((row) => (
-						<Link key={row.id} href={`/players/${(row.original as TPlayer).citizenId}`}>
+						<Link
+							key={row.id}
+							href={`/citizens/${(row.original as TPlayer).citizenId}`}
+						>
 							<TableRow
 								data-state={row.getIsSelected() && "selected"}
 								className="flex rounded-lg"

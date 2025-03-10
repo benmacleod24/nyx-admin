@@ -1,6 +1,7 @@
 import { Fetch } from "@/lib";
 import { ApiEndponts } from "@/lib/config";
 import { authLoadingAtom, authTokenAtom } from "@/lib/state";
+import { permissionsLoadedAtom } from "@/lib/state/permissions";
 import { userAtom } from "@/lib/state/user";
 import { TAuthResponse } from "@/types";
 import { useAtom, useSetAtom } from "jotai";
@@ -12,6 +13,7 @@ export default function AuthInit(props: React.PropsWithChildren) {
 	const setAuthToken = useSetAtom(authTokenAtom);
 	const setUser = useSetAtom(userAtom);
 	const [authLoading, setAuthLoading] = useAtom(authLoadingAtom);
+	const [permissionsLoading] = useAtom(permissionsLoadedAtom);
 	const [location, setLocation] = useLocation();
 
 	const initalizeAuth = useCallback(async () => {
@@ -35,7 +37,7 @@ export default function AuthInit(props: React.PropsWithChildren) {
 		initalizeAuth();
 	}, []);
 
-	if (authLoading) {
+	if (authLoading || !permissionsLoading) {
 		return (
 			<div className="flex flex-col items-center justify-center w-screen h-dvh gap-1.5">
 				<Loader className="text-brand animate-spin" />

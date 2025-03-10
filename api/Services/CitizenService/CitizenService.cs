@@ -9,20 +9,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace api.Services.CharacterService
+namespace api.Services.CitizenService
 {
-    public class PlayerService : IPlayerService
+    public class CitizenService : ICitizenService
     {
         private readonly GameDataContext _gameContext;
         private readonly IMapper _mapper;
 
-        public PlayerService(GameDataContext gameContext, IMapper mapper)
+        public CitizenService(GameDataContext gameContext, IMapper mapper)
         {
             _gameContext = gameContext;
             _mapper = mapper;
         }
 
-        public async Task<PaginationResponseDTO<PlayerDTO>> SearchPlayers(SearchPlayersDTO request)
+        public async Task<PaginationResponseDTO<CitizenDTO>> SearchCitizens(SearchPlayersDTO request)
         {
             IEnumerable<Player> playerQuery = _gameContext.Players;
 
@@ -42,20 +42,33 @@ namespace api.Services.CharacterService
 
             int totalPlayersInQuery = playerQuery.Count();
 
-            return new PaginationResponseDTO<PlayerDTO>
+            return new PaginationResponseDTO<CitizenDTO>
             {
-                Items = _mapper.Map<List<PlayerDTO>>(players),
+                Items = _mapper.Map<List<CitizenDTO>>(players),
                 TotalPages = (int)Math.Ceiling((decimal)totalPlayersInQuery / (decimal)request.Size)
             };
         }
 
-        public async Task<PlayerDTO?> GetPlayerByCitizenId(string citizenId)
+        public async Task<CitizenDTO?> GetCitizenById(string citizenId)
         {
             Player? player = await _gameContext.Players
                 .Where(p => p.Citizenid == citizenId)
                 .SingleOrDefaultAsync();
 
-            return _mapper.Map<PlayerDTO?>(player);
+            return _mapper.Map<CitizenDTO?>(player);
+        }
+
+        public async Task<List<CitizenDTO>> GetRelatedCitizens(string citizenId)
+        {
+            CitizenDTO? citizen = await GetCitizenById(citizenId);
+
+            if (citizen == null) return new List<CitizenDTO>();
+
+            List<Player> relatedCitizens = await _gameContext.Players
+                .Where(p => p.License == citizen.License && p.Citizenid != citizen.CitizenId)
+                .ToListAsync();
+
+            return _mapper.Map<List<CitizenDTO>>(relatedCitizens);
         }
 
         private IEnumerable<Player> BuildPlayerFilters(IEnumerable<Player> query, List<SearchFilter> filters)

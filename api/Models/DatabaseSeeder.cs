@@ -16,7 +16,9 @@ namespace api.Models
             new Permission{ Key = "MODIFY_USERS", FriendlyName = "Modify Users", Description = "Allow the user to modify user details."},
             new Permission {Key = "VIEW_LOGS", FriendlyName = "View Logs", Description = "Allow the user to view and filter logs."},
             new Permission {Key = "VIEW_SYSTEM_SETTINGS", FriendlyName = "View System Settings", Description = "Allow the user to modify basic system settings."},
-            new Permission {Key = "VIEW_PLAYERS", FriendlyName = "View Players", Description = "Allow the user to view players information."}
+            new Permission {Key = "VIEW_PLAYERS", FriendlyName = "View Players", Description = "Allow the user to view players information."},
+            new Permission {Key = "VIEW_PLAYER_REMARKS", FriendlyName = "View Player Remarks", Description = "Allow the user to view the remarks on a players profile."},
+            new Permission {Key = "VIEW_RELATED_CITIZENS", FriendlyName = "View Related Citizens", Description = "Allow the user to view the related citizens of another citizen."}
         };
 
         public static async Task Seed(DatabaseContext context)

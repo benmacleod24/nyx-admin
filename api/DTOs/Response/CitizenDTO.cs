@@ -2,7 +2,7 @@
 
 namespace api.DTOs.Response
 {
-    public class PlayerDTO
+    public class CitizenDTO
     {
         public string CitizenId { get; set; } = null!;
         public string License {  get; set; } = null!;

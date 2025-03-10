@@ -73,6 +73,29 @@ namespace api.Migrations
                     b.ToTable("LogMetadataEntries");
                 });
 
+            modelBuilder.Entity("api.Models.Metric", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Metrics");
+                });
+
             modelBuilder.Entity("api.Models.Permission", b =>
                 {
                     b.Property<int>("Id")
@@ -98,6 +121,35 @@ namespace api.Migrations
                         .IsUnique();
 
                     b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("api.Models.PlayerRemark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("License")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PlayerRemarks");
                 });
 
             modelBuilder.Entity("api.Models.RefreshToken", b =>
@@ -269,6 +321,17 @@ namespace api.Migrations
                     b.Navigation("Log");
                 });
 
+            modelBuilder.Entity("api.Models.PlayerRemark", b =>
+                {
+                    b.HasOne("api.Models.User", "User")
+                        .WithMany("PlayersRemarked")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("api.Models.RefreshToken", b =>
                 {
                     b.HasOne("api.Models.User", null)
@@ -327,6 +390,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.User", b =>
                 {
+                    b.Navigation("PlayersRemarked");
+
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618

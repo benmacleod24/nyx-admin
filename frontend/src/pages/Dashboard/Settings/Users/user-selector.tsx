@@ -51,7 +51,7 @@ export default function UserSelector(props: { users: TUser[] }) {
 
 				{/* User List */}
 				<div className="grid gap-2 mt-2">
-					{Array.isArray(props.users) && props.users.length >= 0 && (
+					{Array.isArray(props.users) && props.users.length <= 0 && (
 						<div className="flex flex-col justify-center items-center mt-10">
 							<CircleAlert className="text-red-300" />
 							<span className="text-muted-foreground text-sm mt-1">

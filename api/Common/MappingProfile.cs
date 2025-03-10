@@ -12,12 +12,14 @@ namespace api.Common
         {
             CreateMap<Role, RoleDTO>();
             CreateMap<Permission, PermissionDTO>();
-            CreateMap<Player, PlayerDTO>();
+            CreateMap<Player, CitizenDTO>();
             CreateMap<User, UserDTO>();
             CreateMap<Log, LogDTO>()
                 .ForMember(dest => dest.Metadata, opt => opt.MapFrom(src => src.Metadata));
             CreateMap<IEnumerable<LogMetadataEntry>, Dictionary<string, object>>()
                 .ConvertUsing<MetaDataToDictionaryConverter>();
+            CreateMap<PlayerRemark, RemarkDTO>()
+                .ForMember(dest => dest.RemarkingUserName, value => value.MapFrom(src => src.User.Username));
         }
     }
 

@@ -52,6 +52,84 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "api.Controllers.CitizensController",
+    "Method": "GetCitizenById",
+    "RelativePath": "api/citizens/{citizenId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "citizenId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "api.DTOs.Response.CitizenDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "api.Controllers.CitizensController",
+    "Method": "GetRelatedCitizens",
+    "RelativePath": "api/citizens/{citizenId}/related-citizens",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "citizenId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[api.DTOs.Response.CitizenDTO, api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "api.Controllers.CitizensController",
+    "Method": "SearchCitizens",
+    "RelativePath": "api/citizens/search",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "api.DTOs.Request.SearchPlayersDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[api.DTOs.Response.CitizenDTO, api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "api.Controllers.LogsController",
     "Method": "CreateLog",
     "RelativePath": "api/logs",
@@ -171,22 +249,22 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "api.Controllers.PlayersController",
-    "Method": "GetPlayerByCitizenId",
-    "RelativePath": "api/players/{citizenId}",
-    "HttpMethod": "GET",
+    "ContainingType": "api.Controllers.RemarksController",
+    "Method": "CreateRemark",
+    "RelativePath": "api/remarks",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "citizenId",
-        "Type": "System.String",
+        "Name": "data",
+        "Type": "api.DTOs.Request.CreateRemarkDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "api.DTOs.Response.PlayerDTO",
+        "Type": "api.DTOs.Response.RemarkDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -197,22 +275,94 @@
     ]
   },
   {
-    "ContainingType": "api.Controllers.PlayersController",
-    "Method": "SearchPlayers",
-    "RelativePath": "api/players/search",
-    "HttpMethod": "POST",
+    "ContainingType": "api.Controllers.RemarksController",
+    "Method": "GetPlayerRemarks",
+    "RelativePath": "api/remarks/{license}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "api.DTOs.Request.SearchPlayersDTO",
+        "Name": "license",
+        "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[api.DTOs.Response.PlayerDTO, api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[api.DTOs.Response.RemarkDTO, api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "api.Controllers.RemarksController",
+    "Method": "GetRemarksByCitizenId",
+    "RelativePath": "api/remarks/citizen/{citizenId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "citizenId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "Page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Size",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "where",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "api.DTOs.Response.PaginationResponseDTO\u00601[[api.DTOs.Response.RemarkDTO, api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "api.Controllers.Reports.EconomyReportsController",
+    "Method": "GetEconomyCiruclationReport",
+    "RelativePath": "api/reports/economy",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "daysAgo",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[api.Services.Reports.EconomyReportsService.EconomyCirculationReport, api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

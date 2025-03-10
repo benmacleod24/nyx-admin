@@ -20,6 +20,9 @@ public partial class GameDataContext : DbContext
     public virtual DbSet<Ban> Bans { get; set; }
 
     public virtual DbSet<Player> Players { get; set; }
+    public virtual DbSet<CrmBankAccount> CrmBankAccounts { get; set; }
+
+    public virtual DbSet<CrmBankLoan> CrmBankLoans { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -160,6 +163,79 @@ public partial class GameDataContext : DbContext
             entity.Property(e => e.Position)
                 .HasColumnType("text")
                 .HasColumnName("position");
+        });
+
+
+        modelBuilder.Entity<CrmBankAccount>(entity =>
+        {
+            entity.HasKey(e => e.CrmId).HasName("PRIMARY");
+
+            entity.ToTable("crm_bank_accounts");
+
+            entity.HasIndex(e => e.CrmIban, "crm_iban").IsUnique();
+
+            entity.Property(e => e.CrmId)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_id");
+            entity.Property(e => e.CrmBalance)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_balance");
+            entity.Property(e => e.CrmCreation)
+                .HasDefaultValueSql("current_timestamp()")
+                .HasColumnType("timestamp")
+                .HasColumnName("crm_creation");
+            entity.Property(e => e.CrmFrozen)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_frozen");
+            entity.Property(e => e.CrmIban).HasColumnName("crm_iban");
+            entity.Property(e => e.CrmMembers)
+                .HasColumnType("text")
+                .HasColumnName("crm_members");
+            entity.Property(e => e.CrmName)
+                .HasMaxLength(255)
+                .HasColumnName("crm_name");
+            entity.Property(e => e.CrmOwner)
+                .HasMaxLength(255)
+                .HasColumnName("crm_owner");
+            entity.Property(e => e.CrmScore)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_score");
+            entity.Property(e => e.CrmType)
+                .HasMaxLength(55)
+                .HasColumnName("crm_type");
+        });
+
+        modelBuilder.Entity<CrmBankLoan>(entity =>
+        {
+            entity.HasKey(e => e.CrmId).HasName("PRIMARY");
+
+            entity.ToTable("crm_bank_loans");
+
+            entity.Property(e => e.CrmId)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_id");
+            entity.Property(e => e.CrmAmount)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_amount");
+            entity.Property(e => e.CrmCreated)
+                .ValueGeneratedOnAddOrUpdate()
+                .HasDefaultValueSql("current_timestamp()")
+                .HasColumnType("timestamp")
+                .HasColumnName("crm_created");
+            entity.Property(e => e.CrmIban)
+                .HasMaxLength(255)
+                .HasColumnName("crm_iban");
+            entity.Property(e => e.CrmInterest).HasColumnName("crm_interest");
+            entity.Property(e => e.CrmPayments)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_payments");
+            entity.Property(e => e.CrmRecurring).HasColumnName("crm_recurring");
+            entity.Property(e => e.CrmRemaining)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_remaining");
+            entity.Property(e => e.CrmStatus)
+                .HasColumnType("int(11)")
+                .HasColumnName("crm_status");
         });
 
 

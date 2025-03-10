@@ -8,4 +8,7 @@ export const Permissions = {
 	CreateUsers: "ADD_USERS",
 	ModifyUsers: "MODIFY_USERS",
 	ViewLogs: "VIEW_LOGS",
+	ViewPlayerRemarks: "VIEW_PLAYER_REMARKS",
+	ViewPlayers: "VIEW_PLAYERS",
+	ViewRelatedCitizens: "VIEW_RELATED_CITIZENS",
 } as const;

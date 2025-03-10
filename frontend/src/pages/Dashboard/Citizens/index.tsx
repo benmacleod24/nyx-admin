@@ -2,19 +2,24 @@ import DashboardLayout from "@/components/layouts/Dashboard";
 import PlayersHeader from "./header";
 import { useEffect } from "react";
 import { Fetch } from "@/lib";
-import { ApiEndponts } from "@/lib/config";
+import { ApiEndponts, Permissions } from "@/lib/config";
 import { TPagination, TPlayer } from "@/types";
 import { useAtom } from "jotai";
 import { playersAtom, totalPlayerPagesAtom } from "@/lib/state/pages/players";
 import PlayersTable from "./players-table";
-import { useSearchParam } from "@/hooks";
+import { useAuth, useSearchParam } from "@/hooks";
 import PlayersFilters from "./filters";
 import { searchFilterArraySchema } from "../Logs";
 import Pagination from "./pagination";
+import { useLocation } from "wouter";
 
 export default function PlayersPage() {
 	const [_, setPlayers] = useAtom(playersAtom);
 	const [__, setTotalPages] = useAtom(totalPlayerPagesAtom);
+
+	const [___, setLocation] = useLocation();
+
+	const { hasPermission, isPermissionsReady } = useAuth();
 
 	const sortBy = useSearchParam("sortBy");
 	const sortOrder = useSearchParam("sortOrder");
@@ -24,7 +29,7 @@ export default function PlayersPage() {
 	useEffect(() => {
 		const safeFilters = searchFilterArraySchema.safeParse(JSON.parse(filters || "[]"));
 
-		Fetch.Post<TPagination<TPlayer>>(ApiEndponts.Players.Search, {
+		Fetch.Post<TPagination<TPlayer>>(ApiEndponts.Citizens.Search, {
 			includeCredentials: true,
 			body: {
 				filters: safeFilters.success
@@ -45,6 +50,12 @@ export default function PlayersPage() {
 			setTotalPages(r.data.totalPages);
 		});
 	}, [sortBy, sortOrder, filters, page]);
+
+	if (!isPermissionsReady) return "permissions not ready";
+	if (!hasPermission([Permissions.ViewPlayers])) {
+		setLocation("/");
+		return;
+	}
 
 	return (
 		<DashboardLayout>

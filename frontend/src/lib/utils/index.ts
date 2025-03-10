@@ -25,6 +25,8 @@ export function capitalize(val: string) {
 }
 
 export function formatPhoneNumber(phone: string): string {
+	if (!phone) return "";
+
 	// Remove all non-numeric characters
 	const digits = phone.replace(/\D/g, "");
 
@@ -53,6 +55,16 @@ export const formatDate = (dateString: string) => {
 		year: "numeric",
 		month: "short",
 		day: "numeric",
+	});
+};
+
+export const formatDateTime = (dateString: string) => {
+	return new Date(dateString).toLocaleString("en-US", {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
 	});
 };
 

@@ -1,4 +1,4 @@
-import { PlayersDefaultColumns } from "@/pages/Dashboard/Players/players-table/players-default-columns";
+import { PlayersDefaultColumns } from "@/pages/Dashboard/Citizens/players-table/players-default-columns";
 import { TPlayer } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { atom } from "jotai";

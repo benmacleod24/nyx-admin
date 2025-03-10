@@ -53,7 +53,7 @@ export default function PlayerTableHeader(props: ColumnHeader) {
 
 	function sortByAscending() {
 		setLocation(
-			`/players?${toQuery({
+			`/citizens?${toQuery({
 				...searchParams,
 				sortBy: props.sortKey || props.column.id,
 				sortOrder: "asc",
@@ -63,7 +63,7 @@ export default function PlayerTableHeader(props: ColumnHeader) {
 
 	function sortByDescending() {
 		setLocation(
-			`/players?${toQuery({
+			`/citizens?${toQuery({
 				...searchParams,
 				sortBy: props.sortKey || props.column.id,
 				sortOrder: "desc",

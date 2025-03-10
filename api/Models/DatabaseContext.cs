@@ -64,5 +64,7 @@ namespace api.Models
         public DbSet<Log> Logs  { get; set; }
         public DbSet<LogMetadataEntry> LogMetadataEntries { get; set; }
         public DbSet<UITableColumn> UITableColumns { get; set; }
+        public DbSet<PlayerRemark> PlayerRemarks { get; set; }
+        public DbSet<Metric> Metrics {  get; set; }
     }
 }

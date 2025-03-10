@@ -1,9 +1,11 @@
 ﻿using api.Services.AuthService;
 using api.Services.BackgroundServices;
-using api.Services.CharacterService;
+using api.Services.CitizenService;
 using api.Services.LogService;
 using api.Services.PasswordHasher;
 using api.Services.PermissionService;
+using api.Services.RemarksService;
+using api.Services.Reports.EconomyReportsService;
 using api.Services.RoleService;
 using api.Services.TableColumnsService;
 using api.Services.UserService;
@@ -22,18 +24,20 @@ namespace api.Extentions
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<ILogService, LogService>();
-            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<ICitizenService, CitizenService>();
             services.AddScoped<ITableColumnsService, TableColumnService>();
+            services.AddScoped<IRemarksService, RemarksService>();
+            services.AddScoped<IEconomyReportsService, EconomyReportsService>();
 
             services.AddQuartz(configure => 
             {
-                    var jobKey = new JobKey(nameof(PlayerBackgroundService));
+                    var economyJobKey = new JobKey(nameof(EconomyBackgroundService));
 
                     configure
-                        .AddJob<PlayerBackgroundService>(jobKey)
+                        .AddJob<EconomyBackgroundService>(economyJobKey)
                         .AddTrigger(
-                            trigger => trigger.ForJob(jobKey).WithSimpleSchedule(
-                                schedule => schedule.WithIntervalInSeconds(30).RepeatForever()));
+                            trigger => trigger.ForJob(economyJobKey).StartAt(DateBuilder.FutureDate(30, IntervalUnit.Minute)).WithSimpleSchedule(
+                                schedule => schedule.WithIntervalInMinutes(30).RepeatForever().WithMisfireHandlingInstructionIgnoreMisfires()));
             });
 
             // Setup Quartz services.

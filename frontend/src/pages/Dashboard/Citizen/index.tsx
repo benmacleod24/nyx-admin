@@ -3,17 +3,28 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ApiEndponts } from "@/lib/config";
+import { useAuth } from "@/hooks";
+import { ApiEndponts, Permissions } from "@/lib/config";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { TPlayer } from "@/types";
-import { ArrowLeft, BadgeCheck, Briefcase, CreditCard, MoveLeft, Users } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Briefcase, CreditCard, Users } from "lucide-react";
 import useSWR from "swr";
-import { useParams } from "wouter";
+import { useLocation, useParams } from "wouter";
+import RelatedCitizens from "./related-citizens";
+import CitizenRemarks from "./recent-remarks";
 
 export default function PlayerPage() {
 	const params = useParams<{ id: string }>();
+	const [_, setLocation] = useLocation();
+	const { hasPermission, isPermissionsReady } = useAuth();
 
-	const { data: playerData } = useSWR<TPlayer>(params.id && ApiEndponts.Players.Get(params.id));
+	const { data: playerData } = useSWR<TPlayer>(params.id && ApiEndponts.Citizens.Get(params.id));
+
+	if (!isPermissionsReady) return "permissions not ready";
+	if (isPermissionsReady && !hasPermission([Permissions.ViewPlayers])) {
+		setLocation("/");
+		return;
+	}
 
 	if (!params.id)
 		return (
@@ -33,7 +44,7 @@ export default function PlayerPage() {
 		<DashboardLayout className="p-5">
 			<div className="mb-5 flex items-center justify-between">
 				<Button variant={"outline"} onClick={() => history.back()}>
-					<ArrowLeft /> Back to Players
+					<ArrowLeft /> Go Back
 				</Button>
 			</div>
 			<div className="grid grid-cols-4 gap-5">
@@ -60,7 +71,7 @@ export default function PlayerPage() {
 							<div>
 								<p className="text-sm text-muted-foreground">Phone</p>
 								<p className="font-medium">
-									{formatPhoneNumber(playerData.phoneNumber)}
+									{formatPhoneNumber(playerData.charInfo.phone)}
 								</p>
 							</div>
 							<div>
@@ -239,6 +250,9 @@ export default function PlayerPage() {
 						)}
 					</CardContent>
 				</Card>
+
+				<RelatedCitizens citizenId={playerData.citizenId} />
+				<CitizenRemarks license={playerData.license} citizenId={playerData.citizenId} />
 			</div>
 		</DashboardLayout>
 	);

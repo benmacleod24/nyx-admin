@@ -1,5 +1,3 @@
-import { User } from "lucide-react";
-
 export const ApiEndponts = {
 	Auth: {
 		Refresh: "/api/auth/refresh",
@@ -34,11 +32,20 @@ export const ApiEndponts = {
 			`/api/roles/${roleKey}/permissions/${permissionId}`,
 		DeleteRole: (roleKey: string) => `/api/roles/${roleKey}`,
 	},
-	Players: {
-		Search: "/api/players/search",
-		Get: (citizenId: string) => `/api/players/${citizenId}`,
+	Citizens: {
+		Search: "/api/citizens/search",
+		Get: (citizenId: string) => `/api/citizens/${citizenId}`,
+		GetRelatedCitizens: (citizenId: string) => `/api/citizens/${citizenId}/related-citizens`,
 	},
 	TableColumns: {
 		Get: (tableKey: string) => `/api/tablecolumns/${tableKey}`,
+	},
+	Remarks: {
+		Get: (license: string) => `/api/remarks/${license}`,
+		GetByCitizenId: (citizenId: string) => `/api/remarks/citizen/${citizenId}`,
+		Create: `/api/remarks`,
+	},
+	Reports: {
+		EconomyOverview: "/api/reports/economy",
 	},
 } as const;

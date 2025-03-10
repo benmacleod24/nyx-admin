@@ -1,7 +1,7 @@
 ﻿using api.DTOs.Request;
 using api.DTOs.Response;
 using api.Models.Game;
-using api.Services.CharacterService;
+using api.Services.CitizenService;
 using api.Services.PermissionService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,20 +15,20 @@ namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayersController : ControllerBase
+    public class CitizensController : ControllerBase
     {
-        private readonly IPlayerService _playerService;
+        private readonly ICitizenService _citizenService;
         private readonly IPermissionService _permissionService;
 
-        public PlayersController(IPlayerService playerService, IPermissionService permissionService)
+        public CitizensController(ICitizenService citizenService, IPermissionService permissionService)
         {
-            _playerService = playerService;
+            _citizenService = citizenService;
             _permissionService = permissionService;
         }
 
         [HttpPost("search")]
         [Authorize]
-        public async Task<ActionResult<List<PlayerDTO>>> SearchPlayers([FromBody] SearchPlayersDTO request)
+        public async Task<ActionResult<List<CitizenDTO>>> SearchCitizens([FromBody] SearchPlayersDTO request)
         {
             string? roleKey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
@@ -42,12 +42,12 @@ namespace api.Controllers
                 return Unauthorized();
             }
 
-            return Ok(await _playerService.SearchPlayers(request));
+            return Ok(await _citizenService.SearchCitizens(request));
         }
 
         [HttpGet("{citizenId}")]
         [Authorize]
-        public async Task<ActionResult<PlayerDTO>> GetPlayerByCitizenId(string citizenId)
+        public async Task<ActionResult<CitizenDTO>> GetCitizenById(string citizenId)
         {
             string? roleKey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
@@ -61,8 +61,28 @@ namespace api.Controllers
                 return Unauthorized();
             }
 
-            PlayerDTO? player = await _playerService.GetPlayerByCitizenId(citizenId);
+            CitizenDTO? player = await _citizenService.GetCitizenById(citizenId);
             return Ok(player);
+        }
+
+        [HttpGet("{citizenId}/related-citizens")]
+        [Authorize]
+        public async Task<ActionResult<List<CitizenDTO>>> GetRelatedCitizens(string citizenId)
+        {
+            string? roleKey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (roleKey == null)
+            {
+                return Unauthorized();
+            }
+
+            if (!await _permissionService.DoesRoleHavePermission(roleKey, "VIEW_RELATED_CITIZENS"))
+            {
+                return Unauthorized();
+            }
+
+            List<CitizenDTO> relatedCitizens = await _citizenService.GetRelatedCitizens(citizenId);
+            return Ok(relatedCitizens);
         }
     }
 }
