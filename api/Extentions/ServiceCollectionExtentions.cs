@@ -32,12 +32,23 @@ namespace api.Extentions
             services.AddQuartz(configure => 
             {
                     var economyJobKey = new JobKey(nameof(EconomyBackgroundService));
+                    var playerJobKey = new JobKey(nameof(PlayerBackgroundService));
 
-                    configure
-                        .AddJob<EconomyBackgroundService>(economyJobKey)
-                        .AddTrigger(
-                            trigger => trigger.ForJob(economyJobKey).StartAt(DateBuilder.FutureDate(30, IntervalUnit.Minute)).WithSimpleSchedule(
-                                schedule => schedule.WithIntervalInMinutes(30).RepeatForever().WithMisfireHandlingInstructionIgnoreMisfires()));
+                configure
+                    .AddJob<EconomyBackgroundService>(economyJobKey)
+                    .AddTrigger(trigger =>
+                        trigger.ForJob(economyJobKey)
+                            .StartAt(DateBuilder.FutureDate(30, IntervalUnit.Minute)) // Delay by 30 mins, so it doesn't run on first start.
+                            .WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(30).RepeatForever())
+                    );
+
+                configure
+                    .AddJob<PlayerBackgroundService>(playerJobKey)
+                    .AddTrigger(trigger =>
+                        trigger.ForJob(playerJobKey)
+                            .StartAt(DateBuilder.FutureDate(30, IntervalUnit.Minute)) // Delay by 30 mins, so it doesn't run on first start.
+                            .WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(30).RepeatForever())
+    );
             });
 
             // Setup Quartz services.

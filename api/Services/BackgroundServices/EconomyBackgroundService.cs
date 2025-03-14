@@ -8,12 +8,10 @@ namespace api.Services.BackgroundServices
 {
     public class EconomyBackgroundService : IJob
     {
-        private readonly GameDataContext _gameContext;
         private readonly IServiceScopeFactory _scopeFactory;
 
         public EconomyBackgroundService(GameDataContext gameContext, IServiceScopeFactory scopeFactory)
         {
-            _gameContext = gameContext;
             _scopeFactory = scopeFactory;
         }
 
